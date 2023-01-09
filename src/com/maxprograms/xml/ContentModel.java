@@ -11,7 +11,9 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
-public class ContentModel {
+import java.io.Serializable;
+
+public class ContentModel implements Serializable {
 
     public static final String EMPTY = "EMPTY";
     public static final String ANY = "ANY";
@@ -22,11 +24,14 @@ public class ContentModel {
     public static final int NONE = 0;
     public static final int OPTIONAL = 1; // ?
     public static final int ZEROMANY = 2; // *
-    public static final int ONEMANY = 3;  // +
+    public static final int ONEMANY = 3; // +
 
- 
+    public ContentModel() {
+    }
+
     public static ContentModel parse(String string) {
         // TODO
         return new ContentModel();
     }
+
 }

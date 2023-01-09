@@ -1,11 +1,17 @@
 # XMLJava
 
-Custom library for handling XML in [Maxprograms](https://maxprograms.com) projects.
+Java library for handling XML in [Maxprograms](https://maxprograms.com) projects.
 
 ## Building
 
-You need JAVA 17 and [Apache Ant 1.10.12](https://ant.apache.org) or newer
+You need Java 17 and [Apache Ant 1.10.12](https://ant.apache.org) or newer
 
-- Checkout this repository
 - Point your JAVA_HOME variable to JDK 17
+- Checkout this repository
 - Run `ant` to compile the source code
+
+``` text
+git clone https://github.com/rmraya/XMLJava.git
+cd XMLJava
+ant
+```
