@@ -19,6 +19,7 @@ import java.lang.System.Logger.Level;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -445,13 +446,15 @@ public class Catalog implements EntityResolver2 {
                 Iterator<EntityDecl> it = entities.iterator();
                 while (it.hasNext()) {
                     EntityDecl entity = it.next();
-                    String path = XMLUtils.getAbsolutePath(dtdFile.getParentFile().getAbsolutePath(), entity.getValue());
+                    String path = XMLUtils.getAbsolutePath(dtdFile.getParentFile().getAbsolutePath(),
+                            entity.getValue());
                     addDtdEntity(entity.getPublicId(), path);
                 }
             } catch (IOException | SAXException e) {
                 // do nothing
                 Logger logger = System.getLogger(Catalog.class.getName());
-                logger.log(Level.WARNING, "Error parsing DTD " + publicId);
+                MessageFormat mf = new MessageFormat(Messages.getString("Catalog.0"));
+                logger.log(Level.WARNING, mf.format(new String[] { publicId }));
             }
             parsedDTDs.add(dtd);
         }

@@ -9,11 +9,24 @@
  * Contributors:
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
+package com.maxprograms.xml;
 
- package com.maxprograms.xml;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-public class Constants {
+public class Messages {
+	private static final String BUNDLE_NAME = Messages.class.getPackageName() + ".xmljava";
 
-    public static final String VERSION = "1.1.0";
-    public static final String BUILD = "20230227_1324";
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+
+	private Messages() {
+	}
+
+	public static String getString(String key) {
+		try {
+			return RESOURCE_BUNDLE.getString(key);
+		} catch (MissingResourceException e) {
+			return '!' + key + '!';
+		}
+	}
 }

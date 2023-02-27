@@ -135,7 +135,7 @@ public class XMLOutputter {
 					break;
 				default:
 					// should never happen
-					logger.log(Level.WARNING, "Header contains wrong content type.");
+					logger.log(Level.WARNING, Messages.getString("XMLOutputter.0"));
 			}
 		}
 	}
@@ -195,7 +195,7 @@ public class XMLOutputter {
 						break;
 					default:
 						// should never happen
-						logger.log(Level.WARNING, "Unknown node type.");
+						logger.log(Level.WARNING, Messages.getString("XMLOutputter.1"));
 				}
 			}
 			if (!preserve) {

@@ -91,7 +91,7 @@ public class Document implements XMLNode {
 						break;
 					default:
 						// should never happen
-						logger.log(Level.WARNING, "Prolog contains wrong content type.");
+						logger.log(Level.WARNING, Messages.getString("Document.0"));
 				}
 			}
 		}
@@ -264,7 +264,7 @@ public class Document implements XMLNode {
 					break;
 				default:
 					// should never happen
-					logger.log(Level.WARNING, "Prolog contains wrong content type.");
+					logger.log(Level.WARNING, Messages.getString("Document.0"));
 			}
 		}
 	}

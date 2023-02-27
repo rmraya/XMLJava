@@ -94,7 +94,7 @@ class CustomContentHandler implements IContentHandler {
 			}
 			current = stack.pop();
 		} catch (EmptyStackException es) {
-			throw new SAXException("Malformed content found.");
+			throw new SAXException(Messages.getString("CustomContentHandler.0"));
 		}
 	}
 

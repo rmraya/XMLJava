@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,16 +49,18 @@ public class DTDParser {
                 // Parameter-entity references
                 int index = source.indexOf(";", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed entity reference");
+                    throw new SAXException(Messages.getString("DTDParser.0"));
                 }
                 String entityName = source.substring(pointer + "%".length(), index);
                 if (!entitiesMap.containsKey(entityName)) {
-                    throw new SAXException("Referenced undeclared entity " + entityName);
+                    MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.1"));
+                    throw new SAXException(mf.format(new String[] { entityName }));
                 }
                 EntityDecl entity = entitiesMap.get(entityName);
                 String module = entity.getValue();
                 if (module == null || module.isBlank()) {
-                    throw new IOException("Error parsing referenced entity %" + entityName + ";");
+                    MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.2"));
+                    throw new IOException(mf.format(new String[] { entityName }));
                 }
                 String path = XMLUtils.getAbsolutePath(file.getParentFile().getAbsolutePath(), module);
                 File mod = new File(path);
@@ -65,7 +68,8 @@ public class DTDParser {
                     parse(mod);
                 } else {
                     if (debug) {
-                        logger.log(Level.WARNING, "Module \"" + mod.getAbsolutePath() + "\" not found");
+                        MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.3"));
+                        logger.log(Level.WARNING, mf.format(new String[] { mod.getAbsolutePath() }));
                     }
                 }
                 pointer += "%".length() + entityName.length() + ";".length();
@@ -73,7 +77,7 @@ public class DTDParser {
             if (lookingAt("<!ELEMENT", source, pointer)) {
                 int index = source.indexOf(">", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed element declaration");
+                    throw new SAXException(Messages.getString("DTDParser.4"));
                 }
                 String elementText = source.substring(pointer, index + ">".length());
                 ElementDecl elementDecl = new ElementDecl(elementText);
@@ -84,7 +88,7 @@ public class DTDParser {
             if (lookingAt("<!ATTLIST", source, pointer)) {
                 int index = source.indexOf(">", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed attribute declaration");
+                    throw new SAXException(Messages.getString("DTDParser.5"));
                 }
                 String attListText = source.substring(pointer, index + ">".length());
                 AttlistDecl attList = new AttlistDecl(attListText);
@@ -95,7 +99,7 @@ public class DTDParser {
             if (lookingAt("<!ENTITY", source, pointer)) {
                 int index = source.indexOf(">", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed entity declaration");
+                    throw new SAXException(Messages.getString("DTDParser.6"));
                 }
                 String entityDeclText = source.substring(pointer, index + ">".length());
                 EntityDecl entityDecl = new EntityDecl(entityDeclText);
@@ -103,7 +107,8 @@ public class DTDParser {
                     entitiesMap.put(entityDecl.getName(), entityDecl);
                 } else {
                     if (debug) {
-                        logger.log(Level.WARNING, "Duplicated entity declaration " + entityDecl);
+                        MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.7"));
+                        logger.log(Level.WARNING, mf.format(new String[] { entityDecl.getName() }));
                     }
                 }
                 pointer += entityDeclText.length();
@@ -112,7 +117,7 @@ public class DTDParser {
             if (lookingAt("<!NOTATION", source, pointer)) {
                 int index = source.indexOf(">", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed notation declaration");
+                    throw new SAXException(Messages.getString("DTDParser.8"));
                 }
                 String notationDeclText = source.substring(pointer, index + ">".length());
                 NotationDecl notation = new NotationDecl(notationDeclText);
@@ -125,7 +130,7 @@ public class DTDParser {
             if (lookingAt("<?", source, pointer)) {
                 int index = source.indexOf("?>", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed processing instruction");
+                    throw new SAXException(Messages.getString("DTDParser.9"));
                 }
                 String piText = source.substring(pointer, index + "?>".length());
                 // ignore processing instructions
@@ -135,7 +140,7 @@ public class DTDParser {
             if (lookingAt("<!--", source, pointer)) {
                 int index = source.indexOf("-->", pointer);
                 if (index == -1) {
-                    throw new SAXException("Malformed comment");
+                    throw new SAXException(Messages.getString("DTDParser.10"));
                 }
                 String commentText = source.substring(pointer, index);
                 // ignore comments
@@ -160,7 +165,7 @@ public class DTDParser {
                 if ("INCLUDE".equals(type)) {
                     int sectionStart = source.indexOf("[", pointer + "<![".length());
                     if (sectionStart == -1) {
-                        throw new SAXException("Malformed conditional section");
+                        throw new SAXException(Messages.getString("DTDParser.11"));
                     }
                     String skip = source.substring(pointer, sectionStart + "[".length());
                     pointer += skip.length();
@@ -168,7 +173,7 @@ public class DTDParser {
                     pointer += section.length();
                     continue;
                 } else {
-                    throw new SAXException("Malformed conditional section");
+                    throw new SAXException(Messages.getString("DTDParser.11"));
                 }
             }
             if (pointer < source.length()) {
@@ -177,9 +182,12 @@ public class DTDParser {
                     pointer++;
                     continue;
                 }
-                logger.log(Level.ERROR, "Text before: " + source.substring(pointer - 20, pointer));
-                logger.log(Level.ERROR, "Text after:  " + source.substring(pointer, pointer + 20));
-                throw new SAXException("Error parsing DTD " + file.getAbsolutePath());
+                MessageFormat before = new MessageFormat(Messages.getString("DTDParser.12"));
+                logger.log(Level.ERROR, before.format(new String[] { source.substring(pointer - 20, pointer) }));
+                MessageFormat after = new MessageFormat(Messages.getString("DTDParser.13"));
+                logger.log(Level.ERROR, after.format(new String[] { source.substring(pointer, pointer + 20) }));
+                MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.14"));
+                throw new SAXException(mf.format(new String[] { file.getAbsolutePath() }));
             }
         }
         return new Grammar(elementDeclMap, attributeListMap, entitiesMap, notationsMap);
@@ -215,7 +223,8 @@ public class DTDParser {
         while ((type.startsWith("%") || type.startsWith("&")) && type.endsWith(";")) {
             String entityName = type.substring(1, type.length() - 1);
             if (!entitiesMap.containsKey(entityName)) {
-                throw new SAXException("Referenced undeclared entity " + entityName);
+                MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.1"));
+                throw new SAXException(mf.format(new String[] { entityName }));
             }
             EntityDecl entity = entitiesMap.get(entityName);
             type = entity.getValue();

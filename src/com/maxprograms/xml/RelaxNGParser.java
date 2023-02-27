@@ -13,6 +13,7 @@ package com.maxprograms.xml;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -214,7 +215,8 @@ public class RelaxNGParser {
                         RelaxNGParser parser = new RelaxNGParser(system, catalog);
                         newContent.add(parser.getRootElement());
                     } else {
-                        throw new SAXException("Missing " + child.getAttributeValue("href") + " in <externalRef>");
+                        MessageFormat mf = new MessageFormat(Messages.getString("RelaxNGParser.1"));
+                        throw new SAXException(mf.format(new String[] { child.getAttributeValue("href") }));
                     }
                     continue;
                 }
@@ -260,7 +262,8 @@ public class RelaxNGParser {
                         }
                         newContent.add(div);
                     } else {
-                        throw new SAXException("Missing " + child.getAttributeValue("href") + " in <include>");
+                        MessageFormat mf = new MessageFormat(Messages.getString("RelaxNGParser.0"));
+                        throw new SAXException(mf.format(new String[] { child.getAttributeValue("href") }));
                     }
                     continue;
                 }

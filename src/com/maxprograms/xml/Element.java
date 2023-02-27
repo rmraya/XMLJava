@@ -109,7 +109,7 @@ public class Element implements XMLNode {
 					break;
 				default:
 					// should never happen
-					logger.log(Level.WARNING, "Element contains wrong content type.");
+					logger.log(Level.WARNING, Messages.getString("Element.0"));
 			}
 		}
 	}

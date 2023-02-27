@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,8 @@ public class SAXBuilder {
 	public Document build(String filename) throws SAXException, IOException, ParserConfigurationException {
 		File f = new File(filename);
 		if (!f.exists()) {
-			throw new IOException("File '" + filename + "' does not exist.");
+			MessageFormat mf = new MessageFormat(Messages.getString("SAXBuilder.1"));
+			throw new IOException(mf.format(new String[] { filename }));
 		}
 		return build(f.toURI().toURL());
 	}
@@ -64,7 +66,8 @@ public class SAXBuilder {
 
 	public Document build(File file) throws SAXException, IOException, ParserConfigurationException {
 		if (!file.exists()) {
-			throw new IOException("File '" + file.getAbsolutePath() + "' does not exist.");
+			MessageFormat mf = new MessageFormat(Messages.getString("SAXBuilder.1"));
+			throw new IOException(mf.format(new String[] { file.getAbsolutePath() }));
 		}
 		return build(file.toURI().toURL());
 	}
