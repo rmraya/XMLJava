@@ -40,7 +40,8 @@ public class Catalog implements EntityResolver2 {
     private Map<String, String> publicCatalog;
     private Map<String, String> uriCatalog;
     private Map<String, String> dtdCatalog;
-    private Map<String, String> dtdEntities;
+    private Map<String, String> dtdPublicEntities;
+    private Map<String, String> dtdSystemEntities;
     private Set<String> parsedDTDs;
     private List<String[]> uriRewrites;
     private List<String[]> systemRewrites;
@@ -327,8 +328,11 @@ public class Catalog implements EntityResolver2 {
         } catch (IOException | URISyntaxException | IllegalArgumentException | NullPointerException e) {
             // ignore
         }
-        if (dtdEntities != null && publicId != null && dtdEntities.containsKey(publicId)) {
-            return new InputSource(new FileInputStream(dtdEntities.get(publicId)));
+        if (dtdPublicEntities != null && publicId != null && dtdPublicEntities.containsKey(publicId)) {
+            return new InputSource(new FileInputStream(dtdPublicEntities.get(publicId)));
+        }
+        if (dtdSystemEntities != null && systemId != null && dtdSystemEntities.containsKey(systemId)) {
+            return new InputSource(new FileInputStream(dtdSystemEntities.get(systemId)));
         }
         return null;
     }
@@ -423,12 +427,21 @@ public class Catalog implements EntityResolver2 {
         return null;
     }
 
-    public void addDtdEntity(String publicId, String path) {
-        if (dtdEntities == null) {
-            dtdEntities = new Hashtable<>();
+    public void addDtdPublicEntity(String publicId, String path) {
+        if (dtdPublicEntities == null) {
+            dtdPublicEntities = new Hashtable<>();
         }
-        if (!dtdEntities.containsKey(publicId)) {
-            dtdEntities.put(publicId, path);
+        if (!dtdPublicEntities.containsKey(publicId)) {
+            dtdPublicEntities.put(publicId, path);
+        }
+    }
+
+    public void addDtdSystemEntity(String systemId, String path) {
+        if (dtdSystemEntities == null) {
+            dtdSystemEntities = new Hashtable<>();
+        }
+        if (!dtdSystemEntities.containsKey(systemId)) {
+            dtdSystemEntities.put(systemId, path);
         }
     }
 
@@ -448,7 +461,13 @@ public class Catalog implements EntityResolver2 {
                     EntityDecl entity = it.next();
                     String path = XMLUtils.getAbsolutePath(dtdFile.getParentFile().getAbsolutePath(),
                             entity.getValue());
-                    addDtdEntity(entity.getPublicId(), path);
+                    addDtdPublicEntity(entity.getPublicId(), path);
+                }
+                entities = grammar.getSytemEntities();
+                it = entities.iterator();
+                while (it.hasNext()) {
+                    EntityDecl entity = it.next();
+                    addDtdSystemEntity(entity.getValue(), entity.getSystemId());
                 }
             } catch (IOException | SAXException e) {
                 // do nothing

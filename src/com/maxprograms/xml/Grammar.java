@@ -62,7 +62,7 @@ public class Grammar {
         List<EntityDecl> result = new Vector<>();
         result.addAll(entitiesMap.values());
         return result;
-    }    
+    }
 
     public List<ElementDecl> getElements() {
         List<ElementDecl> result = new Vector<>();
@@ -72,5 +72,21 @@ public class Grammar {
             result.add(elementDeclMap.get(it.next()));
         }
         return result;
+    }
+
+    public Map<String, ElementDecl> getElementDeclMap() {
+        return elementDeclMap;
+    }
+
+    public Map<String, AttlistDecl> getAttributeListMap() {
+        return attributeListMap;
+    }
+
+    public Map<String, EntityDecl> getEntitiesMap() {
+        return entitiesMap;
+    }
+
+    public Map<String, NotationDecl> getNotationsMap() {
+        return notationsMap;
     }
 }

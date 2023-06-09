@@ -26,10 +26,11 @@ public class EntityDecl implements XMLNode {
     private String type;
     private String value;
     private String publicId;
+    private String systemId;
     private String ndataValue;
     boolean parameterEntity = false;
 
-    public EntityDecl(String declaration) throws IndexOutOfBoundsException{
+    public EntityDecl(String declaration) throws IndexOutOfBoundsException {
         int i = "<!ENTITY".length();
         char c = declaration.charAt(i);
         while (XMLUtils.isXmlSpace(c)) {
@@ -132,12 +133,24 @@ public class EntityDecl implements XMLNode {
         return type;
     }
 
+    protected void setValue(String value) {
+        this.value = value;
+    }
+
     public String getValue() {
         return value;
     }
 
     public String getPublicId() {
         return publicId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
+    }
+    
+    public String getSystemId() {
+        return systemId;
     }
 
     public String getNDATA() {

@@ -103,6 +103,28 @@ public class DTDParser {
                 }
                 String entityDeclText = source.substring(pointer, index + ">".length());
                 EntityDecl entityDecl = new EntityDecl(entityDeclText);
+                if (entityDecl.getType() == EntityDecl.SYSTEM) {
+                    String module = entityDecl.getValue();
+                    if (module == null || module.isBlank()) {
+                        MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.2"));
+                        throw new IOException(mf.format(new String[] { entityDecl.getName() }));
+                    }
+                    String path = XMLUtils.getAbsolutePath(file.getParentFile().getAbsolutePath(), module);
+                    File mod = new File(path);
+                    if (mod.exists()) {
+                        entityDecl.setSystemId(mod.getAbsolutePath()  );
+                        Grammar moduleGrammar = parse(mod);
+                        elementDeclMap.putAll(moduleGrammar.getElementDeclMap());
+                        attributeListMap.putAll(moduleGrammar.getAttributeListMap());
+                        entitiesMap.putAll(moduleGrammar.getEntitiesMap());
+                        notationsMap.putAll(moduleGrammar.getNotationsMap());                        
+                    } else {
+                        if (debug) {
+                            MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.3"));
+                            logger.log(Level.WARNING, mf.format(new String[] { mod.getAbsolutePath() }));
+                        }
+                    }
+                }
                 if (!entitiesMap.containsKey(entityDecl.getName())) {
                     entitiesMap.put(entityDecl.getName(), entityDecl);
                 } else {
