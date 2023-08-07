@@ -40,8 +40,7 @@ public class Indenter {
 		if ("preserve".equals(e.getAttributeValue("xml:space"))) {
 			return;
 		}
-		boolean hasText = hasText(e);
-		if (!hasText) {
+		if (!hasText(e)) {
 			indent(e);
 		}
 		level++;
