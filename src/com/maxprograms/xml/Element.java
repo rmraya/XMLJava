@@ -287,22 +287,33 @@ public class Element implements XMLNode {
 	}
 
 	public void removeChild(String string) {
+		List<XMLNode> newContent = new Vector<>();
 		for (int i = 0; i < content.size(); i++) {
 			XMLNode node = content.get(i);
-			if (node.getNodeType() == XMLNode.ELEMENT_NODE && ((Element) node).getName().equals(string)) {
-				content.remove(node);
+			if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
+				Element e = (Element) node;
+				if (string.equals(e.getName())) {
+					continue;
+				}
 			}
+			newContent.add(node);
 		}
+		content = newContent;
 	}
 
 	public void removeChild(Element child) {
+		List<XMLNode> newContent = new Vector<>();
 		for (int i = 0; i < content.size(); i++) {
 			XMLNode node = content.get(i);
-			if (node.getNodeType() == XMLNode.ELEMENT_NODE && ((Element) node).equals(child)) {
-				content.remove(node);
-				return;
+			if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
+				Element e = (Element) node;
+				if (child.equals(e)) {
+					continue;
+				}
 			}
+			newContent.add(node);
 		}
+		content = newContent;
 	}
 
 	public void setAttribute(String attributeName, String value) {
@@ -372,12 +383,18 @@ public class Element implements XMLNode {
 	}
 
 	public void removePI(String string) {
+		List<XMLNode> newContent = new Vector<>();
 		for (int i = 0; i < content.size(); i++) {
 			XMLNode node = content.get(i);
-			if (node.getNodeType() == XMLNode.PROCESSING_INSTRUCTION_NODE && ((PI) node).getTarget().equals(string)) {
-				content.remove(node);
+			if (node.getNodeType() == XMLNode.PROCESSING_INSTRUCTION_NODE) {
+				PI pi = (PI) node;
+				if (string.equals(pi.getTarget())) {
+					continue;
+				}
 			}
+			newContent.add(node);
 		}
+		content = newContent;
 	}
 
 	public String getPrefix() {

@@ -14,6 +14,6 @@
 
 public class Constants {
 
-    public static final String VERSION = "1.3.0";
-    public static final String BUILD = "20230609_1500";
+    public static final String VERSION = "1.4.0";
+    public static final String BUILD = "20231113_1047";
 }
