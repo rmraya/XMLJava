@@ -334,6 +334,25 @@ public class Element implements XMLNode {
 		content.add(new TextNode(text));
 	}
 
+	public String getHead() {
+		StringBuilder result = new StringBuilder("<" + name);
+		List<String> keys = new Vector<>();
+		keys.addAll(attsTable.keySet());
+		Collections.sort(keys);
+		Iterator<String> it = keys.iterator();
+		while (it.hasNext()) {
+			Attribute a = attsTable.get(it.next());
+			result.append(' ');
+			result.append(a.toString());
+		}
+		result.append(">");
+		return result.toString();
+	}
+
+	public String getTail() {
+		return "</" + name + ">";
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder("<" + name);

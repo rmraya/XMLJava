@@ -11,8 +11,6 @@ module xmljava {
 	
 	exports com.maxprograms.xml;
 
-	opens com.maxprograms.xml to mapdb;
-
 	requires java.base;
 	requires transitive java.xml;
 }
