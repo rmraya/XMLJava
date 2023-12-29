@@ -10,10 +10,15 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
- package com.maxprograms.xml;
+package com.maxprograms.xml;
 
 public class Constants {
 
     public static final String VERSION = "1.5.0";
     public static final String BUILD = "20231229_1000";
+
+    private Constants() {
+        // private for security
+    }
+
 }

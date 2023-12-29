@@ -103,7 +103,7 @@ public class DTDParser {
                 }
                 String entityDeclText = source.substring(pointer, index + ">".length());
                 EntityDecl entityDecl = new EntityDecl(entityDeclText);
-                if (entityDecl.getType() == EntityDecl.SYSTEM) {
+                if (entityDecl.getType().equals(EntityDecl.SYSTEM)) {
                     String module = entityDecl.getValue();
                     if (module == null || module.isBlank()) {
                         MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.2"));
