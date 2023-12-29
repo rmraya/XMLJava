@@ -16,9 +16,9 @@ Features in development:
 
 ## Building
 
-You need Java 17 and [Apache Ant 1.10.12](https://ant.apache.org) or newer
+You need Java 21 and [Apache Ant 1.10.14](https://ant.apache.org) or newer
 
-- Point your JAVA_HOME variable to JDK 17
+- Point your JAVA_HOME variable to JDK 21
 - Checkout this repository
 - Run `ant` to compile the source code
 
