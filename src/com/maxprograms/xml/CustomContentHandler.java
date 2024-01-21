@@ -28,7 +28,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-class CustomContentHandler implements IContentHandler {
+public class CustomContentHandler implements IContentHandler {
 
 	private Document doc;
 	private Element current;
