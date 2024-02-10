@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Maxprograms.
+ * Copyright (c) 2022 - 2024 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -14,8 +14,8 @@ package com.maxprograms.xml;
 
 public class Constants {
 
-    public static final String VERSION = "1.6.1";
-    public static final String BUILD = "20240122_0831";
+    public static final String VERSION = "1.6.2";
+    public static final String BUILD = "20240210_0948";
 
     private Constants() {
         // private for security
