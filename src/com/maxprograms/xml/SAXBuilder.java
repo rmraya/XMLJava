@@ -80,6 +80,7 @@ public class SAXBuilder {
 			parser.setFeature("http://apache.org/xml/features/validation/schema", true);
 			parser.setFeature("http://apache.org/xml/features/validation/dynamic", true);
 		}
+		parser.setProperty("http://www.oracle.com/xml/jaxp/properties/totalEntitySizeLimit", 0);
 		boolean clearHandler = false;
 		if (contentHandler == null) {
 			contentHandler = new CustomContentHandler();
@@ -145,6 +146,7 @@ public class SAXBuilder {
 			parser.setFeature("http://apache.org/xml/features/validation/schema", true);
 			parser.setFeature("http://apache.org/xml/features/validation/dynamic", true);
 		}
+		parser.setProperty("http://www.oracle.com/xml/jaxp/properties/totalEntitySizeLimit", 0);
 		boolean clearHandler = false;
 		if (contentHandler == null) {
 			contentHandler = new CustomContentHandler();

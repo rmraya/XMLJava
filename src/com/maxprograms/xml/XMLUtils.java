@@ -11,8 +11,16 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
+import java.util.StringTokenizer;
 
 public class XMLUtils {
 
@@ -81,4 +89,56 @@ public class XMLUtils {
 	public static boolean isXmlSpace(char c) {
         return c == ' ' || c == '\t' || c == '\n' || c == '\r';
     }
+
+	public static String getXMLEncoding(String fileName) {
+		// return UTF-8 as default
+		String result = StandardCharsets.UTF_8.name();
+		try {
+			// check if there is a BOM (byte order mark)
+			// at the start of the document
+			byte[] array = new byte[2];
+			try (FileInputStream inputStream = new FileInputStream(fileName)) {
+				int bytes = inputStream.read(array);
+				if (bytes == -1) {
+					MessageFormat mf = new MessageFormat(Messages.getString("XMLUtils.1"));
+					throw new IOException(mf.format(new String[] { fileName }));
+				}
+			}
+			byte[] lt = "<".getBytes();
+			byte[] feff = { -1, -2 };
+			byte[] fffe = { -2, -1 };
+			if (array[0] != lt[0]) {
+				// there is a BOM, now check the order
+				if (array[0] == fffe[0] && array[1] == fffe[1]) {
+					return StandardCharsets.UTF_16BE.name();
+				}
+				if (array[0] == feff[0] && array[1] == feff[1]) {
+					return StandardCharsets.UTF_16LE.name();
+				}
+			}
+			// check declared encoding
+			String line = "";
+			try (FileReader input = new FileReader(fileName); BufferedReader buffer = new BufferedReader(input)) {
+				line = buffer.readLine();
+			}
+			if (line.startsWith("<?")) {
+				line = line.substring(2, line.indexOf("?>"));
+				line = line.replace("\'", "\"");
+				StringTokenizer tokenizer = new StringTokenizer(line);
+				while (tokenizer.hasMoreTokens()) {
+					String token = tokenizer.nextToken();
+					if (token.startsWith("encoding")) {
+						result = token.substring(token.indexOf('\"') + 1, token.lastIndexOf('\"'));
+					}
+				}
+			}
+		} catch (Exception e) {
+			Logger logger = System.getLogger(XMLUtils.class.getName());
+			logger.log(Level.ERROR, e.getMessage(), e);
+		}
+		if (result.equalsIgnoreCase("utf-8")) {
+			result = StandardCharsets.UTF_8.name();
+		}
+		return result;
+	}
 }
