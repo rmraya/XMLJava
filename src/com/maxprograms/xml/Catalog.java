@@ -49,7 +49,7 @@ public class Catalog implements EntityResolver2 {
     private String base = "";
     private String documentParent = "";
 
-    public Catalog(String catalogFile)
+    protected Catalog(String catalogFile)
             throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
         File file = new File(catalogFile);
         if (!file.isAbsolute()) {
@@ -301,7 +301,6 @@ public class Catalog implements EntityResolver2 {
         return null;
     }
 
-    @SuppressWarnings("resource")
     @Override
     public InputSource resolveEntity(String name, String publicId, String baseURI, String systemId)
             throws SAXException, IOException {
