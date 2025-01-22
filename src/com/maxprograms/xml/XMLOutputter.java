@@ -11,8 +11,11 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.nio.charset.Charset;
@@ -35,77 +38,82 @@ public class XMLOutputter {
 
 	private static Logger logger = System.getLogger(XMLOutputter.class.getName());
 
-	public void output(Document sdoc, OutputStream output) throws IOException {
-		if (defaultEncoding.equals(StandardCharsets.UTF_16LE)) {
-			output.write(XMLUtils.UTF16LEBOM);
-		}
-		if (defaultEncoding.equals(StandardCharsets.UTF_16BE)) {
-			output.write(XMLUtils.UTF16BEBOM);
-		}
-		if (writeBOM) {
-			output.write(XMLUtils.UTF8BOM);
-		}
-		if (!skipLinefeed) {
-			writeString(output, "<?xml version=\"1.0\" encoding=\"" + defaultEncoding + "\" ?>\n");
-		} else {
-			writeString(output, "<?xml version=\"1.0\" encoding=\"" + defaultEncoding + "\"?>");
-		}
-		String doctype = sdoc.getRootElement().getName();
-		String publicId = sdoc.getPublicId();
-		String systemId = sdoc.getSystemId();
-		String internalSubset = sdoc.getInternalSubset();
-		List<AttributeDecl> customAttributes = sdoc.getAttributes();
-		if (customAttributes != null) {
-			if (internalSubset == null) {
-				internalSubset = "";
-			}
-			for (int i = 0; i < customAttributes.size(); i++) {
-				internalSubset = internalSubset + "\n" + customAttributes.get(i);
-			}
-		}
-		if (publicId != null || systemId != null || internalSubset != null) {
-			writeString(output, "<!DOCTYPE " + doctype + " ");
-			if (publicId != null) {
-				writeString(output, "PUBLIC \"" + publicId + "\" \"" + systemId + "\"");
-				if (internalSubset != null && !internalSubset.isEmpty()) {
-					writeString(output, " [" + internalSubset + "]>\n");
+	public void output(Document sdoc, OutputStream out) throws IOException {
+		try (OutputStreamWriter outputWriter = new OutputStreamWriter(out, sdoc.getEncoding())) {
+			try (Writer writer = new BufferedWriter(outputWriter)) {
+				if (defaultEncoding.equals(StandardCharsets.UTF_16LE)) {
+					writer.write(new String(new byte[] { (byte) 0xFF, (byte) 0xFE }, StandardCharsets.UTF_16LE));
+				}
+				if (defaultEncoding.equals(StandardCharsets.UTF_16BE)) {
+					writer.write(new String(new byte[] { (byte) 0xFE, (byte) 0xFF }, StandardCharsets.UTF_16BE));
+				}
+				if (writeBOM && defaultEncoding.equals(StandardCharsets.UTF_8)) {
+					writer.write(
+							new String(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF }, StandardCharsets.UTF_8));
+				}
+				if (!skipLinefeed) {
+					writer.write("<?xml version=\"1.0\" encoding=\"" + defaultEncoding + "\" ?>\n");
 				} else {
-					writeString(output, ">\n");
+					writer.write("<?xml version=\"1.0\" encoding=\"" + defaultEncoding + "\"?>");
 				}
-			} else {
-				if (systemId != null) {
-					writeString(output, "SYSTEM \"" + systemId + "\" ");
+				String doctype = sdoc.getRootElement().getName();
+				String publicId = sdoc.getPublicId();
+				String systemId = sdoc.getSystemId();
+				String internalSubset = sdoc.getInternalSubset();
+				List<AttributeDecl> customAttributes = sdoc.getAttributes();
+				if (customAttributes != null) {
+					if (internalSubset == null) {
+						internalSubset = "";
+					}
+					for (int i = 0; i < customAttributes.size(); i++) {
+						internalSubset = internalSubset + "\n" + customAttributes.get(i);
+					}
 				}
-				if (internalSubset != null) {
-					writeString(output, "[\n" + internalSubset + "]");
+				if (publicId != null || systemId != null || internalSubset != null) {
+					writer.write("<!DOCTYPE " + doctype + " ");
+					if (publicId != null) {
+						writer.write("PUBLIC \"" + publicId + "\" \"" + systemId + "\"");
+						if (internalSubset != null && !internalSubset.isEmpty()) {
+							writer.write(" [" + internalSubset + "]>\n");
+						} else {
+							writer.write(">\n");
+						}
+					} else {
+						if (systemId != null) {
+							writer.write("SYSTEM \"" + systemId + "\" ");
+						}
+						if (internalSubset != null) {
+							writer.write("[\n" + internalSubset + "]");
+						}
+						writer.write(">\n");
+					}
+				} else {
+					if (emptyDoctype) {
+						writer.write("<!DOCTYPE " + doctype + ">");
+					}
 				}
-				writeString(output, ">\n");
-			}
-		} else {
-			if (emptyDoctype) {
-				writeString(output, "<!DOCTYPE " + doctype + ">");
+				entities = sdoc.getEntities();
+				if (entities == null) {
+					entities = new Hashtable<>();
+					entities.put("lt", "&#38;#60;");
+					entities.put("gt", "&#62;");
+					entities.put("amp", "&#38;#38;");
+				}
+				processHeader(writer, sdoc.getContent());
 			}
 		}
-		entities = sdoc.getEntities();
-		if (entities == null) {
-			entities = new Hashtable<>();
-			entities.put("lt", "&#38;#60;");
-			entities.put("gt", "&#62;");
-			entities.put("amp", "&#38;#38;");
-		}
-		processHeader(output, sdoc.getContent());
 	}
 
-	private void processHeader(OutputStream output, List<XMLNode> list) throws IOException {
+	private void processHeader(Writer output, List<XMLNode> list) throws IOException {
 		int length = list.size();
 		for (int i = 0; i < length; i++) {
 			XMLNode n = list.get(i);
 			switch (n.getNodeType()) {
 				case XMLNode.PROCESSING_INSTRUCTION_NODE:
 					PI pi = (PI) n;
-					writeString(output, "<?" + pi.getTarget() + " " + pi.getData() + "?>");
+					output.write("<?" + pi.getTarget() + " " + pi.getData() + "?>");
 					if (!preserve) {
-						writeString(output, "\n");
+						output.write("\n");
 					}
 					break;
 				case XMLNode.DOCUMENT_NODE:
@@ -117,20 +125,20 @@ public class XMLOutputter {
 				case XMLNode.COMMENT_NODE:
 					Comment c = (Comment) n;
 					if (!preserve) {
-						writeString(output, "\n<!-- " + c.getText() + " -->");
+						output.write("\n<!-- " + c.getText() + " -->");
 					} else {
-						writeString(output, "<!-- " + c.getText() + " -->");
+						output.write("<!-- " + c.getText() + " -->");
 					}
 					break;
 				case XMLNode.CDATA_SECTION_NODE:
 					CData cd = (CData) n;
-					writeString(output, "<![CDATA[" + cd.getData() + "]]>");
+					output.write("<![CDATA[" + cd.getData() + "]]>");
 					break;
 				case XMLNode.TEXT_NODE:
 					TextNode tn = (TextNode) n;
 					String text = cleanString(tn.getText());
 					if (text != null) {
-						writeString(output, text);
+						output.write(text);
 					}
 					break;
 				default:
@@ -140,22 +148,21 @@ public class XMLOutputter {
 		}
 	}
 
-	private void traverse(OutputStream output, Element el) throws IOException {
-
+	private void traverse(Writer output, Element el) throws IOException {
 		String type = el.getName();
 		String space = el.getAttributeValue("xml:space", "default");
 		if (space.equals("preserve") && !preserve) {
 			preserve = true;
 		}
-		writeString(output, "<" + type);
+		output.write("<" + type);
 		List<Attribute> attrs = el.getAttributes();
 		for (int i = 0; i < attrs.size(); i++) {
 			Attribute a = attrs.get(i);
-			writeString(output, " " + a.toString());
+			output.write(" " + a.toString());
 		}
 		List<XMLNode> list = el.getContent();
 		if (!list.isEmpty()) {
-			writeString(output, ">");
+			output.write(">");
 			for (int i = 0; i < list.size(); i++) {
 				XMLNode n = list.get(i);
 				switch (n.getNodeType()) {
@@ -173,25 +180,25 @@ public class XMLOutputter {
 							text = text.replace("'", "&apos;");
 						}
 						if (preserve) {
-							writeString(output, text);
+							output.write(text);
 						} else {
-							writeString(output, normalize(text));
+							output.write(normalize(text));
 						}
 						break;
 					case XMLNode.PROCESSING_INSTRUCTION_NODE:
 						PI pi = (PI) n;
-						writeString(output, "<?" + pi.getTarget() + " " + pi.getData() + "?>");
+						output.write("<?" + pi.getTarget() + " " + pi.getData() + "?>");
 						break;
 					case XMLNode.COMMENT_NODE:
 						Comment c = (Comment) n;
 						if (!preserve) {
-							writeString(output, "\n<!-- " + c.getText() + " -->");
+							output.write("\n<!-- " + c.getText() + " -->");
 						} else {
-							writeString(output, "<!-- " + c.getText() + " -->");
+							output.write("<!-- " + c.getText() + " -->");
 						}
 						break;
 					case XMLNode.CDATA_SECTION_NODE:
-						writeString(output, n.toString());
+						output.write(n.toString());
 						break;
 					default:
 						// should never happen
@@ -199,15 +206,15 @@ public class XMLOutputter {
 				}
 			}
 			if (!preserve) {
-				writeString(output, "</" + type + ">\n");
+				output.write("</" + type + ">\n");
 			} else {
-				writeString(output, "</" + type + ">");
+				output.write("</" + type + ">");
 			}
 		} else {
 			if (skipLinefeed) {
-				writeString(output, " />");
+				output.write(" />");
 			} else {
-				writeString(output, "/>");
+				output.write("/>");
 			}
 		}
 	}
@@ -285,10 +292,6 @@ public class XMLOutputter {
 			}
 		}
 		return result;
-	}
-
-	private void writeString(OutputStream output, String input) throws IOException {
-		output.write(input.getBytes(defaultEncoding));
 	}
 
 	private static String normalize(String string) {

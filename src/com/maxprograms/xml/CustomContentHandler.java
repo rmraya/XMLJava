@@ -209,7 +209,10 @@ public class CustomContentHandler implements IContentHandler {
 
 	@Override
 	public void declaration(String version, String encoding, String standalone) throws SAXException {
-		// do nothing
+		if (encoding == null) {
+			encoding = "UTF-8";
+		}
+		this.encoding = encoding.toUpperCase();
 	}
 
 	@Override
@@ -358,7 +361,7 @@ public class CustomContentHandler implements IContentHandler {
 		if (doc == null) {
 			this.systemId = systemId1;
 			if (catalog != null && publicId != null) {
-				catalog.parseDTD(publicId);				
+				catalog.parseDTD(publicId);
 			}
 			doc = new Document(null, name, publicId, systemId);
 			if (encoding != null) {
