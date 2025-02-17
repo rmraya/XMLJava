@@ -88,7 +88,10 @@ public class Indenter {
 				if (text != null) {
 					for (int i = 0; i < text.length(); i++) {
 						char c = text.charAt(i);
-						if (!(Character.isSpaceChar(c) || c == '\n' || c =='\r' || c == '\t')) {
+						if (c == '\u00A0') {
+							return true;
+						}
+						if (!(Character.isSpaceChar(c) || c == '\n' || c == '\r' || c == '\t' || c == '\u00A0')) {
 							return true;
 						}
 					}
@@ -97,5 +100,4 @@ public class Indenter {
 		}
 		return false;
 	}
-
 }
