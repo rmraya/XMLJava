@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -261,7 +262,6 @@ public class Catalog implements EntityResolver2 {
         return uriRewrites;
     }
 
-    @SuppressWarnings("resource")
     @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         if (publicId != null) {
@@ -332,6 +332,14 @@ public class Catalog implements EntityResolver2 {
         }
         if (dtdSystemEntities != null && systemId != null && dtdSystemEntities.containsKey(systemId)) {
             return new InputSource(new FileInputStream(dtdSystemEntities.get(systemId)));
+        }
+        Collection<String> values = systemCatalog.values();
+        Iterator<String> it = values.iterator();
+        while (it.hasNext()) {
+            String value = it.next();
+            if (value.endsWith(systemId)) {
+                return new InputSource(new FileInputStream(value));
+            }
         }
         return null;
     }
