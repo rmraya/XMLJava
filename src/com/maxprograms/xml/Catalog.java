@@ -16,9 +16,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -29,6 +31,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.InputSource;
@@ -36,6 +39,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.EntityResolver2;
 
 public class Catalog implements EntityResolver2 {
+
+    Logger logger = System.getLogger(Catalog.class.getName());
 
     private Map<String, String> systemCatalog;
     private Map<String, String> publicCatalog;
@@ -321,6 +326,9 @@ public class Catalog implements EntityResolver2 {
         try {
             URI uri = new URI(baseURI != null ? baseURI : "").resolve(systemId).normalize();
             if (uri.toURL().getProtocol() != null) {
+                if (uri.toURL().getProtocol().startsWith("http")) {
+                    return resolveHttp(uri);
+                }
                 return new InputSource(uri.toURL().openStream());
             }
             return new InputSource(new FileInputStream(uri.toURL().toString()));
@@ -342,6 +350,27 @@ public class Catalog implements EntityResolver2 {
             }
         }
         return null;
+    }
+
+    private InputSource resolveHttp(URI uri) throws MalformedURLException, IOException {
+        MessageFormat mf = new MessageFormat(Messages.getString("Catalog.3"));
+        logger.log(Level.WARNING, mf.format(new String[] { uri.toURL().toString() }));
+        URL url = uri.toURL();
+        try {
+            HttpURLConnection con = url.getProtocol().equals("https") ? (HttpsURLConnection) url.openConnection()
+                    : (HttpURLConnection) url.openConnection();
+            con.setReadTimeout(5000);
+            con.connect();
+            con.getResponseCode();
+            if (con.getResponseCode() != 200) {
+                mf = new MessageFormat(Messages.getString("Catalog.2"));
+                throw new IOException(mf.format(new String[] { con.getResponseCode() + "", url.toString() }));
+            }
+            return new InputSource(con.getInputStream());
+        } catch (IOException e) {
+            mf = new MessageFormat(Messages.getString("Catalog.1"));
+            throw new IOException(mf.format(new String[] { url.toString(), e.getMessage() }));
+        }
     }
 
     public String matchPublic(String publicId) {
@@ -478,7 +507,6 @@ public class Catalog implements EntityResolver2 {
                 }
             } catch (IOException | SAXException e) {
                 // do nothing
-                Logger logger = System.getLogger(Catalog.class.getName());
                 MessageFormat mf = new MessageFormat(Messages.getString("Catalog.0"));
                 logger.log(Level.WARNING, mf.format(new String[] { publicId }));
             }
