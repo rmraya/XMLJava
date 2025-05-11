@@ -60,13 +60,14 @@ public class XMLOutputter {
 				String publicId = sdoc.getPublicId();
 				String systemId = sdoc.getSystemId();
 				String internalSubset = sdoc.getInternalSubset();
-				List<AttributeDecl> customAttributes = sdoc.getAttributes();
-				if (customAttributes != null) {
+
+				List<AttlistDecl> attlistDeclarations = sdoc.getAttlistDeclarations();
+				if (attlistDeclarations != null && !attlistDeclarations.isEmpty()) {
 					if (internalSubset == null) {
 						internalSubset = "";
 					}
-					for (int i = 0; i < customAttributes.size(); i++) {
-						internalSubset = internalSubset + "\n" + customAttributes.get(i);
+					for (AttlistDecl attlist : attlistDeclarations) {
+						internalSubset += "\n" + attlist.toString();
 					}
 				}
 				if (publicId != null || systemId != null || internalSubset != null) {
