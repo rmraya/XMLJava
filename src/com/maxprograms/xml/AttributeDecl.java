@@ -12,81 +12,57 @@
 
 package com.maxprograms.xml;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
+public class AttributeDecl {
+    private String name;
+    private String type;
+    private String defaultValue;
+    private boolean isFixed;
+    private boolean isParameterEntity = false;
 
-public class AttributeDecl implements XMLNode, Comparable<AttributeDecl> {
-
-    String element;
-    String attribute;
-    String type;
-    String mode;
-    String value;
-
-    public AttributeDecl(String element, String attribute, String type, String mode, String value) {
-        this.element = element;
-        this.attribute = attribute;
+    public AttributeDecl(String name, String type, String defaultValue, boolean isFixed) {
+        this.name = name;
         this.type = type;
-        this.mode = mode;
-        this.value = value;
+        this.defaultValue = defaultValue;
+        this.isFixed = isFixed;
     }
 
-    public String getElementName() {
-        return element;
+    public void setParameterEntity(boolean isParameterEntity) {
+        this.isParameterEntity = isParameterEntity;
     }
 
-    public String getAttributeName() {
-        return attribute;
-    }
-
-    public String getMode() {
-        return mode;
+    public String getName() {
+        return name;
     }
 
     public String getType() {
         return type;
     }
 
-    public String getValue() {
-        return value;
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public boolean isFixed() {
+        return isFixed;
     }
 
     @Override
     public String toString() {
-        if (value != null) {
-            return "<!ATTLIST " + element + " " + attribute + " " + type + " " + mode + " \"" + value + "\">";
+        if (isParameterEntity) {
+            return name;
         }
-        return "<!ATTLIST " + element + " " + attribute + " " + type + " " + mode + ">";
-    }
-
-    @Override
-    public int compareTo(AttributeDecl o) {
-        int first = element.compareTo(o.element);
-        return first != 0 ? first : attribute.compareTo(o.attribute);
-    }
-
-    @Override
-    public short getNodeType() {
-        return XMLNode.ATTRIBUTE_DECL_NODE;
-    }
-
-    @Override
-    public void writeBytes(OutputStream output, Charset charset) throws IOException {
-        output.write(toString().getBytes(charset));
-    }
-
-    @Override
-    public int hashCode() {
-        return toString().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof AttributeDecl other) {
-          return toString().equals(other.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(" ").append(type);
+        if (isFixed) {
+            sb.append(" #FIXED");
+            sb.append(" \"").append(defaultValue).append("\"");
+        } else if ("#REQUIRED".equals(defaultValue)) {
+            sb.append(" #REQUIRED");
+        } else if ("#IMPLIED".equals(defaultValue)) {
+            sb.append(" #IMPLIED");
+        } else if (defaultValue != null && !defaultValue.isEmpty()) {
+            sb.append(" \"").append(defaultValue).append("\"");
         }
-        return false;
+        return sb.toString();
     }
-
 }

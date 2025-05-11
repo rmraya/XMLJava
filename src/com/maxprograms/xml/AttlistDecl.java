@@ -14,7 +14,6 @@ package com.maxprograms.xml;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -26,6 +25,7 @@ public class AttlistDecl implements XMLNode {
     public AttlistDecl(String declaration) {
         attributes = new Vector<>();
         int i = "<!ATTLIST".length();
+        declaration = declaration.trim();
         char c = declaration.charAt(i);
         while (XMLUtils.isXmlSpace(c)) {
             i++;
@@ -38,44 +38,159 @@ public class AttlistDecl implements XMLNode {
             c = declaration.charAt(i);
         }
         listName = sb.toString();
-        // TODO this.parseAttributes(declaration.substring(i).trim());
+        parseAttributes(declaration.substring(i, declaration.lastIndexOf(">")).trim());
     }
 
     private void parseAttributes(String declaration) {
         int i = 0;
-        char c = declaration.charAt(i);
-        while (XMLUtils.isXmlSpace(c)) {
-            i++;
-            c = declaration.charAt(i);
-        }
-        StringBuilder nameBuilder = new StringBuilder();
-        while (!XMLUtils.isXmlSpace(c)) {
-            nameBuilder.append(c);
-            i++;
-            c = declaration.charAt(i);
-        }
-        String name = nameBuilder.toString();
-        while (XMLUtils.isXmlSpace(c)) {
-            i++;
-            c = declaration.charAt(i);
-        }
-        StringBuilder typeBuilder = new StringBuilder();
-        if (c == '(') {
-            // it is an ennumeration
-            while (c != ')') {
-                typeBuilder.append(c);
+        while (i < declaration.length()) {
+            char c = declaration.charAt(i);
+
+            // Skip whitespace
+            while (i < declaration.length() && XMLUtils.isXmlSpace(c)) {
                 i++;
-                c = declaration.charAt(i);
+                if (i < declaration.length()) {
+                    c = declaration.charAt(i);
+                }
             }
-            typeBuilder.append(')');
-        } else {
-            while (!XMLUtils.isXmlSpace(c) || c == '(') {
-                typeBuilder.append(c);
+
+            // Parse attribute name
+            StringBuilder nameBuilder = new StringBuilder();
+            while (i < declaration.length() && !XMLUtils.isXmlSpace(c)) {
+                nameBuilder.append(c);
                 i++;
-                c = declaration.charAt(i);
+                if (i < declaration.length()) {
+                    c = declaration.charAt(i);
+                }
+            }
+            String name = nameBuilder.toString();
+
+            if (name.startsWith("%") && name.endsWith(";")) {
+                // It is a parameter entity reference
+                AttributeDecl parameterEntity = new AttributeDecl(name, null, null, false);
+                parameterEntity.setParameterEntity(true);
+                attributes.add(parameterEntity);
+                continue;
+            }
+            // Skip whitespace
+            while (i < declaration.length() && XMLUtils.isXmlSpace(c)) {
+                i++;
+                if (i < declaration.length()) {
+                    c = declaration.charAt(i);
+                }
+            }
+
+            // Parse attribute type, it can be:
+            // StringType: 'CDATA'
+            // TokenizedType: 'ID','IDREF','IDREFS','ENTITY','ENTITIES','NMTOKEN' or
+            // 'NMTOKENS'
+            // or an enumeration od string values
+
+            StringBuilder typeBuilder = new StringBuilder();
+            if (c == '(') {
+                // It is an enumeration
+                while (i < declaration.length() && c != ')') {
+                    typeBuilder.append(c);
+                    i++;
+                    if (i < declaration.length()) {
+                        c = declaration.charAt(i);
+                    }
+                }
+                if (c == ')') {
+                    typeBuilder.append(c);
+                    i++;
+                    c = declaration.charAt(i);
+                }
+            } else {
+                while (i < declaration.length() && !XMLUtils.isXmlSpace(c)) {
+                    typeBuilder.append(c);
+                    i++;
+                    if (i < declaration.length()) {
+                        c = declaration.charAt(i);
+                    }
+                }
+            }
+            String type = typeBuilder.toString();
+
+            // Skip whitespace
+            while (i < declaration.length() && XMLUtils.isXmlSpace(c)) {
+                i++;
+                if (i < declaration.length()) {
+                    c = declaration.charAt(i);
+                }
+            }
+
+            // Parse defaultDecl section
+            // DefaultDecl can be:
+            // #IMPLIED, #REQUIRED, #FIXED or a quoted string
+
+            if (c == '#') {
+                // Parse #IMPLIED, #REQUIRED, or #FIXED
+                StringBuilder keywordBuilder = new StringBuilder();
+                while (i < declaration.length() && !XMLUtils.isXmlSpace(c)) {
+                    keywordBuilder.append(c);
+                    i++;
+                    if (i < declaration.length()) {
+                        c = declaration.charAt(i);
+                    }
+                }
+                String keyword = keywordBuilder.toString();
+                if ("#FIXED".equals(keyword)) {
+                    StringBuilder defaultValueBuilder = new StringBuilder();
+
+                    // Skip whitespace after #FIXED
+                    while (i < declaration.length() && XMLUtils.isXmlSpace(c)) {
+                        i++;
+                        if (i < declaration.length()) {
+                            c = declaration.charAt(i);
+                        }
+                    }
+
+                    // Parse the fixed default value
+                    if (c == '"' || c == '\'') {
+                        char quote = c;
+                        i++;
+                        if (i < declaration.length()) {
+                            c = declaration.charAt(i);
+                        }
+                        while (i < declaration.length() && c != quote) {
+                            defaultValueBuilder.append(c);
+                            i++;
+                            if (i < declaration.length()) {
+                                c = declaration.charAt(i);
+                            }
+                        }
+                        if (c == quote) {
+                            i++;
+                        }
+                    } else {
+                        throw new IllegalArgumentException("Expected quoted default value after #FIXED.");
+                    }
+                    attributes.add(new AttributeDecl(name, type, defaultValueBuilder.toString(), true));
+                } else {
+                    attributes.add(new AttributeDecl(name, type, keyword, false));
+                }
+            } else if (c == '"' || c == '\'') {
+                StringBuilder defaultValueBuilder = new StringBuilder();
+                // Default value is quoted
+                char quote = c;
+                i++;
+                if (i < declaration.length()) {
+                    c = declaration.charAt(i);
+                }
+                while (i < declaration.length() && c != quote) {
+                    defaultValueBuilder.append(c);
+                    i++;
+                    if (i < declaration.length()) {
+                        c = declaration.charAt(i);
+                    }
+                }
+                if (c == quote) {
+                    i++;
+                }
+                attributes.add(new AttributeDecl(name, type, defaultValueBuilder.toString(), false));
             }
         }
-        String type = typeBuilder.toString();
     }
 
     public String getListName() {
@@ -93,13 +208,12 @@ public class AttlistDecl implements XMLNode {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("<!ATTLIST");
-        Iterator<AttributeDecl> it = attributes.iterator();
-        while (it.hasNext()) {
-            sb.append("\n  ");
-            sb.append(it.next().toString());
+        StringBuilder sb = new StringBuilder("<!ATTLIST ");
+        sb.append(listName);
+        for (AttributeDecl attr : attributes) {
+            sb.append("\n  ").append(attr.toString());
         }
-        sb.append("\n>\n");
+        sb.append("\n>");
         return sb.toString();
     }
 
