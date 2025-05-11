@@ -32,6 +32,11 @@ public class DTDName implements ContentParticle {
     }
 
     @Override
+    public void addParticle(ContentParticle particle) {
+        // do nothing
+    }
+
+    @Override
     public String toString() {
         switch (cardinality) {
             case ContentModel.NONE:

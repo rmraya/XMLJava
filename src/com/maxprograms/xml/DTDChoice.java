@@ -45,7 +45,27 @@ public class DTDChoice implements ContentParticle {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+        StringBuilder sb = new StringBuilder("(");
+        for (int i = 0; i < content.size(); i++) {
+            ContentParticle particle = content.get(i);
+            sb.append(particle.toString());
+            if (i < content.size() - 1) {
+                sb.append('|');
+            }
+        }
+        sb.append(')');
+        switch (cardinality) {
+            case ContentModel.NONE:
+                return sb.toString();
+            case ContentModel.OPTIONAL:
+                return sb + "?";
+            case ContentModel.ONEMANY:
+                return sb + "+";
+            case ContentModel.ZEROMANY:
+                return sb + "*";
+            default:
+                // ignore
+        }
+        return sb.toString();
     }
 }

@@ -24,6 +24,11 @@ public class DTDPCData implements ContentParticle {
     }
 
     @Override
+    public void addParticle(ContentParticle particle) {
+        // do nothing
+    }
+
+    @Override
     public int getCardinality() {
         return ContentModel.NONE;
     }

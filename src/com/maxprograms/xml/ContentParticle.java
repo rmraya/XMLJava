@@ -19,6 +19,7 @@ public interface ContentParticle {
     public static final int CHOICE = 3;
 
     public int getType();
+    public void addParticle(ContentParticle particle);
     public void setCardinality(int cardinality);
     public int getCardinality();
     @Override
