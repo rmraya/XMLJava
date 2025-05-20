@@ -12,6 +12,7 @@
 package com.maxprograms.xml;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -65,7 +66,8 @@ public class ContentModel implements Serializable {
         if (string.startsWith("(#PCDATA")) {
             type = MIXED;
             if (!string.endsWith(")*")) {
-                throw new IllegalArgumentException("Invalid mixed content model: " + string);
+                MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.0"));
+                throw new IllegalArgumentException(mf.format(new Object[] { modelString }));
             }
         }
 
@@ -87,13 +89,13 @@ public class ContentModel implements Serializable {
                 current.add(groupParticle);
             } else if ("*".equals(token) || "+".equals(token) || "?".equals(token)) {
                 if (current.isEmpty()) {
-                    throw new IllegalArgumentException(
-                            "Cardinality operator '" + token + "' must follow a valid particle.");
+                    MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.1"));
+                    throw new IllegalArgumentException(mf.format(new Object[] { token }));
                 }
                 Object lastObject = current.get(current.size() - 1);
                 if (!(lastObject instanceof ContentParticle)) {
-                    throw new IllegalArgumentException(
-                            "Cardinality operator '" + token + "' must follow a valid particle.");
+                    MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.1"));
+                    throw new IllegalArgumentException(mf.format(new Object[] { token }));
                 }
                 int cardinality = "?".equals(token) ? OPTIONAL : ("*".equals(token) ? ZEROMANY : ONEMANY);
                 ((ContentParticle) lastObject).setCardinality(cardinality);
@@ -108,7 +110,8 @@ public class ContentModel implements Serializable {
 
         for (Object obj : current) {
             if (!(obj instanceof ContentParticle)) {
-                throw new IllegalArgumentException("Invalid content model: " + string);
+                MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.2"));
+                throw new IllegalArgumentException(mf.format(new Object[] { modelString }));
             }
             particles.add((ContentParticle) obj);
         }
@@ -118,7 +121,7 @@ public class ContentModel implements Serializable {
 
     private static ContentParticle processGroup(List<Object> group) {
         if (group.isEmpty()) {
-            throw new IllegalArgumentException("Empty group found in content model.");
+            throw new IllegalArgumentException(Messages.getString("ContentModel.3"));
         }
         if (group.size() == 1) {
             Object obj = group.get(0);
@@ -139,7 +142,8 @@ public class ContentModel implements Serializable {
             }
         }
         if (sep == null) {
-            throw new IllegalArgumentException("No separator found in group: " + group);
+            MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.4"));
+            throw new IllegalArgumentException(mf.format(new Object[] { group }));
         }
         ContentParticle result = "|".equals(sep) ? new DTDChoice() : new DTDSecuence();
         for (Object obj : group) {
@@ -163,17 +167,20 @@ public class ContentModel implements Serializable {
             else if (c == ')')
                 balance--;
             if (balance < 0) {
-                throw new IllegalArgumentException("Unbalanced parentheses in content model: " + string);
+                MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.5"));
+                throw new IllegalArgumentException(mf.format(new Object[] { string }));
             }
         }
         if (balance != 0) {
-            throw new IllegalArgumentException("Unbalanced parentheses in content model: " + string);
+            MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.5"));
+            throw new IllegalArgumentException(mf.format(new Object[] { string }));
         }
     }
 
     private static void validateToken(String token) {
         if (!token.matches("[a-zA-Z0-9#|,?*+()]+")) {
-            throw new IllegalArgumentException("Invalid token in content model: " + token);
+            MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.6"));
+            throw new IllegalArgumentException(mf.format(new Object[] { token }));
         }
     }
 
