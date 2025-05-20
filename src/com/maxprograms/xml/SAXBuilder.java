@@ -179,10 +179,10 @@ public class SAXBuilder {
 			if (entities != null && entities.size() > 0) {
 				doc.setEntities(entities);
 			}
-			List<AttributeDecl> attDeclarations = declhandler.getAttributes();
-			if (attDeclarations != null && preserveAttributes && hasCustomAttributes(url, doc.getEncoding())) {
+			List<AttlistDecl> attlistDeclarations = declhandler.getAttlistDeclarations();
+			if (attlistDeclarations != null && preserveAttributes && hasCustomAttributes(url, doc.getEncoding())) {
 				Set<String> namespaces = getRootNamespaces(doc.getRootElement());
-				doc.setAttributes(filterAttributeDeclarations(attDeclarations, namespaces));
+				doc.setAttlistDeclarations(filterAttlistDeclarations(attlistDeclarations, namespaces));
 			}
 		}
 		if (clearHandler) {
@@ -191,21 +191,23 @@ public class SAXBuilder {
 		return doc;
 	}
 
-	private List<AttributeDecl> filterAttributeDeclarations(List<AttributeDecl> declarations, Set<String> namespaces) {
-		List<AttributeDecl> result = new Vector<>();
-		Iterator<AttributeDecl> it = declarations.iterator();
-		while (it.hasNext()) {
-			AttributeDecl ad = it.next();
-			String aName = ad.getAttributeName();
-			if (aName.indexOf(':') != -1) {
-				String prefix = aName.substring(0, aName.indexOf(':'));
-				String suffix = aName.substring(aName.indexOf(':') + 1);
-				if (namespaces.contains(prefix)) {
-					result.add(ad);
+	private List<AttlistDecl> filterAttlistDeclarations(List<AttlistDecl> declarations, Set<String> namespaces) {
+		List<AttlistDecl> result = new Vector<>();
+		for (AttlistDecl attlist : declarations) {
+			AttlistDecl filteredAttlist = new AttlistDecl("<!ATTLIST " + attlist.getListName() + ">");
+			for (AttributeDecl attribute : attlist.getAttributes()) {
+				String aName = attribute.getName();
+				if (aName.indexOf(':') != -1) {
+					String prefix = aName.substring(0, aName.indexOf(':'));
+					if (namespaces.contains(prefix)) {
+						filteredAttlist.getAttributes().add(attribute);
+					}
+				} else {
+					filteredAttlist.getAttributes().add(attribute);
 				}
-				if ("xmlns".equals(prefix) && namespaces.contains(suffix) && !"#FIXED".equals(ad.getMode())) {
-					result.add(ad);
-				}
+			}
+			if (!filteredAttlist.getAttributes().isEmpty()) {
+				result.add(filteredAttlist);
 			}
 		}
 		return result;

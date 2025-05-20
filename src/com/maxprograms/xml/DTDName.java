@@ -11,6 +11,9 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
+import java.util.List;
+import java.util.Vector;
+
 public class DTDName implements ContentParticle {
 
     private String name;
@@ -34,6 +37,13 @@ public class DTDName implements ContentParticle {
     @Override
     public void addParticle(ContentParticle particle) {
         // do nothing
+    }
+
+    @Override
+    public List<ContentParticle> getParticles() {
+        List<ContentParticle> result = new Vector<>();
+        result.add(this);
+        return result;
     }
 
     @Override

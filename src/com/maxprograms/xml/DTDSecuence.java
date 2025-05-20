@@ -50,7 +50,7 @@ public class DTDSecuence implements ContentParticle {
             ContentParticle particle = content.get(i);
             sb.append(particle.toString());
             if (i < content.size() - 1) {
-                sb.append(',');
+                sb.append(", ");
             }
         }
         sb.append(')');
@@ -67,5 +67,9 @@ public class DTDSecuence implements ContentParticle {
                 // ignore
         }
         return sb.toString();
+    }
+
+    public List<ContentParticle> getParticles() {
+        return content;
     }
 }

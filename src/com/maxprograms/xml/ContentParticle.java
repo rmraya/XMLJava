@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
+import java.util.List;
+
 public interface ContentParticle {
 
     public static final int PCDATA = 0;
@@ -19,9 +21,15 @@ public interface ContentParticle {
     public static final int CHOICE = 3;
 
     public int getType();
+
     public void addParticle(ContentParticle particle);
+
     public void setCardinality(int cardinality);
+
     public int getCardinality();
+
+    public List<ContentParticle> getParticles();
+
     @Override
-	public String toString();
+    public String toString();
 }

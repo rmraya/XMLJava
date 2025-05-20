@@ -11,6 +11,9 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
+import java.util.List;
+import java.util.Vector;
+
 public class DTDPCData implements ContentParticle {
 
     @Override
@@ -20,7 +23,7 @@ public class DTDPCData implements ContentParticle {
 
     @Override
     public void setCardinality(int cardinality) {
-        // do nothing        
+        // do nothing
     }
 
     @Override
@@ -29,10 +32,15 @@ public class DTDPCData implements ContentParticle {
     }
 
     @Override
+    public List<ContentParticle> getParticles() {
+        return new Vector<>();
+    }
+
+    @Override
     public int getCardinality() {
         return ContentModel.NONE;
     }
-    
+
     @Override
     public String toString() {
         return "#PCDATA";
