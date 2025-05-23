@@ -80,7 +80,7 @@ public class DTDParser {
                     throw new SAXException(Messages.getString("DTDParser.4"));
                 }
                 String elementText = source.substring(pointer, index + ">".length());
-                ElementDecl elementDecl = new ElementDecl(elementText);
+                ElementDecl elementDecl = new ElementDecl(replaceParameterEntities(elementText));
                 elementDeclMap.put(elementDecl.getName(), elementDecl);
                 pointer += elementText.length();
                 continue;
@@ -112,12 +112,12 @@ public class DTDParser {
                     String path = XMLUtils.getAbsolutePath(file.getParentFile().getAbsolutePath(), module);
                     File mod = new File(path);
                     if (mod.exists()) {
-                        entityDecl.setSystemId(mod.getAbsolutePath()  );
+                        entityDecl.setSystemId(mod.getAbsolutePath());
                         Grammar moduleGrammar = parse(mod);
                         elementDeclMap.putAll(moduleGrammar.getElementDeclMap());
                         attributeListMap.putAll(moduleGrammar.getAttributeListMap());
                         entitiesMap.putAll(moduleGrammar.getEntitiesMap());
-                        notationsMap.putAll(moduleGrammar.getNotationsMap());                        
+                        notationsMap.putAll(moduleGrammar.getNotationsMap());
                     } else {
                         if (debug) {
                             MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.3"));
@@ -213,6 +213,40 @@ public class DTDParser {
             }
         }
         return new Grammar(elementDeclMap, attributeListMap, entitiesMap, notationsMap);
+    }
+
+    private String replaceParameterEntities(String elementText) throws SAXException {
+        if (elementText.indexOf('%') == -1) {
+            return elementText;
+        }
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        while (index < elementText.length()) {
+            char c = elementText.charAt(index);
+            if (c == '%') {
+                int end = elementText.indexOf(';', index);
+                if (end == -1) {
+                    MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.16"));
+                    throw new SAXException(mf.format(new String[] { elementText }));
+                }
+                String entityName = elementText.substring(index + 1, end);
+                if (!entitiesMap.containsKey(entityName)) {
+                    MessageFormat mf = new MessageFormat(Messages.getString("DTDParser.15"));
+                    throw new SAXException(mf.format(new String[] { entityName, elementText }));
+                }
+                EntityDecl entity = entitiesMap.get(entityName);
+                sb.append(entity.getValue());
+                index = end + 1;
+            } else {
+                sb.append(c);
+                index++;
+            }
+        }
+        String replaced = sb.toString();
+        while (replaced.indexOf('%') != -1) {
+            replaced = replaceParameterEntities(replaced);
+        }
+        return replaced;
     }
 
     private int count(String target, String section) {

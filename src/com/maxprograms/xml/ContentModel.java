@@ -67,7 +67,7 @@ public class ContentModel implements Serializable {
             type = MIXED;
             if (!string.endsWith(")*")) {
                 MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.0"));
-                throw new IllegalArgumentException(mf.format(new Object[] { modelString }));
+                throw new IllegalArgumentException(mf.format(new String[] { modelString }));
             }
         }
 
@@ -90,12 +90,12 @@ public class ContentModel implements Serializable {
             } else if ("*".equals(token) || "+".equals(token) || "?".equals(token)) {
                 if (current.isEmpty()) {
                     MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.1"));
-                    throw new IllegalArgumentException(mf.format(new Object[] { token }));
+                    throw new IllegalArgumentException(mf.format(new String[] { token }));
                 }
                 Object lastObject = current.get(current.size() - 1);
                 if (!(lastObject instanceof ContentParticle)) {
                     MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.1"));
-                    throw new IllegalArgumentException(mf.format(new Object[] { token }));
+                    throw new IllegalArgumentException(mf.format(new String[] { token }));
                 }
                 int cardinality = "?".equals(token) ? OPTIONAL : ("*".equals(token) ? ZEROMANY : ONEMANY);
                 ((ContentParticle) lastObject).setCardinality(cardinality);
@@ -111,7 +111,7 @@ public class ContentModel implements Serializable {
         for (Object obj : current) {
             if (!(obj instanceof ContentParticle)) {
                 MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.2"));
-                throw new IllegalArgumentException(mf.format(new Object[] { modelString }));
+                throw new IllegalArgumentException(mf.format(new String[] { modelString }));
             }
             particles.add((ContentParticle) obj);
         }
@@ -142,8 +142,7 @@ public class ContentModel implements Serializable {
             }
         }
         if (sep == null) {
-            MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.4"));
-            throw new IllegalArgumentException(mf.format(new Object[] { group }));
+            throw new IllegalArgumentException(Messages.getString("ContentModel.4"));
         }
         ContentParticle result = "|".equals(sep) ? new DTDChoice() : new DTDSecuence();
         for (Object obj : group) {
@@ -168,19 +167,19 @@ public class ContentModel implements Serializable {
                 balance--;
             if (balance < 0) {
                 MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.5"));
-                throw new IllegalArgumentException(mf.format(new Object[] { string }));
+                throw new IllegalArgumentException(mf.format(new String[] { string }));
             }
         }
         if (balance != 0) {
             MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.5"));
-            throw new IllegalArgumentException(mf.format(new Object[] { string }));
+            throw new IllegalArgumentException(mf.format(new String[] { string }));
         }
     }
 
     private static void validateToken(String token) {
         if (!token.matches("[a-zA-Z0-9#|,?*+()]+")) {
             MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.6"));
-            throw new IllegalArgumentException(mf.format(new Object[] { token }));
+            throw new IllegalArgumentException(mf.format(new String[] { token }));
         }
     }
 
