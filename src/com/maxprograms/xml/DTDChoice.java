@@ -12,6 +12,8 @@
 package com.maxprograms.xml;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Vector;
 
 public class DTDChoice implements ContentParticle {
@@ -71,5 +73,21 @@ public class DTDChoice implements ContentParticle {
 
     public List<ContentParticle> getParticles() {
         return content;
+    }
+
+    public Set<String> getChildren() {
+        Set<String> children = new TreeSet<>();
+        for (ContentParticle particle : content) {
+            if (particle instanceof DTDName name) {
+                children.add(name.getName());
+            }
+            if (particle instanceof DTDChoice choice) {
+                children.addAll(choice.getChildren());
+            }
+            if (particle instanceof DTDSecuence sequence) {
+                children.addAll(sequence.getChildren());
+            }
+        }
+        return children;
     }
 }

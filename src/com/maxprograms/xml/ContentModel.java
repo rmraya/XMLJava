@@ -11,14 +11,15 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
-import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 import java.util.Vector;
 
-public class ContentModel implements Serializable {
+public class ContentModel {
 
     public static final String EMPTY = "EMPTY";
     public static final String ANY = "ANY";
@@ -78,7 +79,6 @@ public class ContentModel implements Serializable {
 
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
-            validateToken(token);
 
             if (token.equals("(")) {
                 stack.push(current);
@@ -125,16 +125,15 @@ public class ContentModel implements Serializable {
         }
         if (group.size() == 1) {
             Object obj = group.get(0);
-            if (obj instanceof ContentParticle) {
-                return (ContentParticle) obj;
-            } else if (obj instanceof String) {
-                return new DTDName((String) obj);
+            if (obj instanceof ContentParticle particle) {
+                return particle;
+            } else if (obj instanceof String name) {
+                return new DTDName(name);
             }
         }
         String sep = null;
         for (Object obj : group) {
-            if (obj instanceof String) {
-                String token = (String) obj;
+            if (obj instanceof String token) {
                 if ("|".equals(token) || ",".equals(token)) {
                     sep = token;
                     break;
@@ -149,10 +148,10 @@ public class ContentModel implements Serializable {
             if ("|".equals(obj) || ",".equals(obj)) {
                 continue;
             }
-            if (obj instanceof ContentParticle) {
-                result.addParticle((ContentParticle) obj);
-            } else if (obj instanceof String) {
-                result.addParticle(new DTDName((String) obj));
+            if (obj instanceof ContentParticle particle) {
+                result.addParticle(particle);
+            } else if (obj instanceof String name) {
+                result.addParticle(new DTDName(name));
             }
         }
         return result;
@@ -176,13 +175,6 @@ public class ContentModel implements Serializable {
         }
     }
 
-    private static void validateToken(String token) {
-        if (!token.matches("[a-zA-Z0-9#|,?*+()]+")) {
-            MessageFormat mf = new MessageFormat(Messages.getString("ContentModel.6"));
-            throw new IllegalArgumentException(mf.format(new String[] { token }));
-        }
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -203,5 +195,24 @@ public class ContentModel implements Serializable {
 
     public String getType() {
         return type;
+    }
+
+    public Set<String> getChildren() {
+        if (type.equals(EMPTY)) {
+            return new TreeSet<>();
+        }
+        Set<String> children = new TreeSet<>();
+        for (ContentParticle particle : content) {
+            if (particle instanceof DTDName name) {
+                children.add(name.getName());
+            }
+            if (particle instanceof DTDChoice choice) {
+                children.addAll(choice.getChildren());
+            }
+            if (particle instanceof DTDSecuence sequence) {
+                children.addAll(sequence.getChildren());
+            }
+        }
+        return children;
     }
 }

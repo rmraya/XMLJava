@@ -14,6 +14,7 @@ package com.maxprograms.xml;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Vector;
 
@@ -24,24 +25,24 @@ public class AttlistDecl implements XMLNode {
 
     public AttlistDecl(String declaration) {
         attributes = new Vector<>();
-        int i = "<!ATTLIST".length();
         declaration = declaration.trim();
+        int i = "<!ATTLIST".length();
         char c = declaration.charAt(i);
         while (XMLUtils.isXmlSpace(c)) {
             i++;
             c = declaration.charAt(i);
         }
         StringBuilder sb = new StringBuilder();
-        while (!XMLUtils.isXmlSpace(c)) {
+        while (!XMLUtils.isXmlSpace(c) && c != '>') {
             sb.append(c);
             i++;
             c = declaration.charAt(i);
         }
         listName = sb.toString();
-        parseAttributes(declaration.substring(i, declaration.lastIndexOf(">")).trim());
+        parseAttributes(declaration.substring(i, declaration.lastIndexOf('>')).trim());
     }
 
-    private void parseAttributes(String declaration) {
+    private void parseAttributes(String declaration) throws IllegalArgumentException {
         int i = 0;
         while (i < declaration.length()) {
             char c = declaration.charAt(i);
@@ -164,7 +165,8 @@ public class AttlistDecl implements XMLNode {
                             i++;
                         }
                     } else {
-                        throw new IllegalArgumentException("Expected quoted default value after #FIXED.");
+                        MessageFormat mf = new MessageFormat(Messages.getString("AttlistDecl.0"));
+                        throw new IllegalArgumentException(mf.format(new String[] {declaration}));
                     }
                     attributes.add(new AttributeDecl(name, type, defaultValueBuilder.toString(), true));
                 } else {

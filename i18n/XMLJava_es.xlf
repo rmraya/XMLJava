@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff srcLang="en" xmlns:mtc="urn:oasis:names:tc:xliff:matches:2.0" version="2.0" xmlns:mda="urn:oasis:names:tc:xliff:metadata:2.0" trgLang="es" xmlns="urn:oasis:names:tc:xliff:document:2.0">
   <file original="com/maxprograms/xml/xmljava.properties" id="0">
-    <skeleton>Q2F0YWxvZy4wPSUlJTAlJSUKQ2FsYXRhbG9nLjE9JSUlMSUlJQpDYWxhdGFsb2cuMj0lJSUyJSUl
-CkNhdGFsb2cuMz0lJSUzJSUlCkNvbnRlbnRNb2RlbC4wPSUlJTQlJSUKQ29udGVudE1vZGVsLjE9
-JSUlNSUlJQpDb250ZW50TW9kZWwuMj0lJSU2JSUlCkNvbnRlbnRNb2RlbC4zPSUlJTclJSUKQ29u
-dGVudE1vZGVsLjQ9JSUlOCUlJQpDb250ZW50TW9kZWwuNT0lJSU5JSUlCkNvbnRlbnRNb2RlbC42
-PSUlJTEwJSUlCkN1c3RvbUNvbnRlbnRIYW5kbGVyLjA9JSUlMTElJSUKRG9jdW1lbnQuMD0lJSUx
-MiUlJQpEVERQYXJzZXIuMD0lJSUxMyUlJQpEVERQYXJzZXIuMT0lJSUxNCUlJQpEVERQYXJzZXIu
-MTA9JSUlMTUlJSUKRFREUGFyc2VyLjExPSUlJTE2JSUlCkRURFBhcnNlci4xMj0lJSUxNyUlJQpE
-VERQYXJzZXIuMTM9JSUlMTglJSUKRFREUGFyc2VyLjE0PSUlJTE5JSUlCkRURFBhcnNlci4xNT0l
-JSUyMCUlJQpEVERQYXJzZXIuMTY9JSUlMjElJSUKRFREUGFyc2VyLjI9JSUlMjIlJSUKRFREUGFy
-c2VyLjM9JSUlMjMlJSUKRFREUGFyc2VyLjQ9JSUlMjQlJSUKRFREUGFyc2VyLjU9JSUlMjUlJSUK
-RFREUGFyc2VyLjY9JSUlMjYlJSUKRFREUGFyc2VyLjc9JSUlMjclJSUKRFREUGFyc2VyLjg9JSUl
-MjglJSUKRFREUGFyc2VyLjk9JSUlMjklJSUKRWxlbWVudC4wPSUlJTMwJSUlClJlbGF4TkdQYXJz
-ZXIuMD0lJSUzMSUlJQpSZWxheE5HUGFyc2VyLjE9JSUlMzIlJSUKU0FYQnVpbGRlci4xPSUlJTMz
-JSUlClhNTE91dHB1dHRlci4wPSUlJTM0JSUlClhNTE91dHB1dHRlci4xPSUlJTM1JSUlClhNTFV0
-aWxzLjE9JSUlMzYlJSUK</skeleton>
+    <skeleton>QXR0bGlzdERlY2wuMD0lJSUwJSUlCkNhdGFsb2cuMD0lJSUxJSUlCkNhbGF0YWxvZy4xPSUlJTIl
+JSUKQ2FsYXRhbG9nLjI9JSUlMyUlJQpDYXRhbG9nLjM9JSUlNCUlJQpDb250ZW50TW9kZWwuMD0l
+JSU1JSUlCkNvbnRlbnRNb2RlbC4xPSUlJTYlJSUKQ29udGVudE1vZGVsLjI9JSUlNyUlJQpDb250
+ZW50TW9kZWwuMz0lJSU4JSUlCkNvbnRlbnRNb2RlbC40PSUlJTklJSUKQ29udGVudE1vZGVsLjU9
+JSUlMTAlJSUKQ29udGVudE1vZGVsLjY9JSUlMTElJSUKQ3VzdG9tQ29udGVudEhhbmRsZXIuMD0l
+JSUxMiUlJQpEb2N1bWVudC4wPSUlJTEzJSUlCkRURFBhcnNlci4wPSUlJTE0JSUlCkRURFBhcnNl
+ci4xPSUlJTE1JSUlCkRURFBhcnNlci4xMD0lJSUxNiUlJQpEVERQYXJzZXIuMTE9JSUlMTclJSUK
+RFREUGFyc2VyLjEyPSUlJTE4JSUlCkRURFBhcnNlci4xMz0lJSUxOSUlJQpEVERQYXJzZXIuMTQ9
+JSUlMjAlJSUKRFREUGFyc2VyLjE1PSUlJTIxJSUlCkRURFBhcnNlci4xNj0lJSUyMiUlJQpEVERQ
+YXJzZXIuMj0lJSUyMyUlJQpEVERQYXJzZXIuMz0lJSUyNCUlJQpEVERQYXJzZXIuND0lJSUyNSUl
+JQpEVERQYXJzZXIuNT0lJSUyNiUlJQpEVERQYXJzZXIuNj0lJSUyNyUlJQpEVERQYXJzZXIuNz0l
+JSUyOCUlJQpEVERQYXJzZXIuOD0lJSUyOSUlJQpEVERQYXJzZXIuOT0lJSUzMCUlJQpFbGVtZW50
+LjA9JSUlMzElJSUKUmVsYXhOR1BhcnNlci4wPSUlJTMyJSUlClJlbGF4TkdQYXJzZXIuMT0lJSUz
+MyUlJQpTQVhCdWlsZGVyLjE9JSUlMzQlJSUKWE1MT3V0cHV0dGVyLjA9JSUlMzUlJSUKWE1MT3V0
+cHV0dGVyLjE9JSUlMzYlJSUKWE1MVXRpbHMuMT0lJSUzNyUlJQo=</skeleton>
     <mda:metadata>
       <mda:metaGroup category="format">
         <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
@@ -26,412 +26,423 @@ aWxzLjE9JSUlMzYlJSUK</skeleton>
         <mda:meta type="tool-version">3.13.0 20230829_0823</mda:meta>
       </mda:metaGroup>
       <mda:metaGroup category="PI">
-        <mda:meta type="encoding">utf-8</mda:meta>
+        <mda:meta type="encoding">utf8</mda:meta>
       </mda:metaGroup>
     </mda:metadata>
     <unit id="0">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">Catalog.0</mda:meta>
+          <mda:meta type="resname">AttlistDecl.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="0">
-        <source xml:space="preserve">Error parsing DTD ''{0}''</source>
-        <target xml:space="preserve">Error al analizar DTD ''{0}''</target>
+        <source xml:space="preserve">Default value not found after #FIXED in ''{0}''</source>
+        <target xml:space="preserve">Valor predeterminado no encontrado después de #FIXED en ''{0}''</target>
       </segment>
     </unit>
     <unit id="1">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">Calatalog.1</mda:meta>
+          <mda:meta type="resname">Catalog.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="1">
-        <source xml:space="preserve">Error connecting to ''{0}'': {1}</source>
-        <target xml:space="preserve">Error conectando a ''{0}'': {1}</target>
+        <source xml:space="preserve">Error parsing DTD ''{0}''</source>
+        <target xml:space="preserve">Error al analizar DTD ''{0}''</target>
       </segment>
     </unit>
     <unit id="2">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">Calatalog.2</mda:meta>
+          <mda:meta type="resname">Calatalog.1</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="2">
-        <source xml:space="preserve">Error  {0} for: {1}</source>
-        <target xml:space="preserve">Error  {0} para: {1}</target>
+        <source xml:space="preserve">Error connecting to ''{0}'': {1}</source>
+        <target xml:space="preserve">Error conectando a ''{0}'': {1}</target>
       </segment>
     </unit>
     <unit id="3">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">Catalog.3</mda:meta>
+          <mda:meta type="resname">Calatalog.2</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="3">
-        <source xml:space="preserve">Resolving from URL ''{0}''</source>
-        <target xml:space="preserve">Resolviendo desde URL ''{0}''</target>
+        <source xml:space="preserve">Error  {0} for: {1}</source>
+        <target xml:space="preserve">Error  {0} para: {1}</target>
       </segment>
     </unit>
     <unit id="4">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.0</mda:meta>
+          <mda:meta type="resname">Catalog.3</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="4">
-        <source xml:space="preserve">Invalid mixed content model: {0}</source>
-        <target xml:space="preserve">Modelo de contenido mixto no válido: {0}</target>
+        <source xml:space="preserve">Resolving from URL ''{0}''</source>
+        <target xml:space="preserve">Resolviendo desde URL ''{0}''</target>
       </segment>
     </unit>
     <unit id="5">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.1</mda:meta>
+          <mda:meta type="resname">ContentModel.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="5">
-        <source xml:space="preserve">Cardinality operator ''{0}'' must follow a valid particle</source>
-        <target xml:space="preserve">El operador de cardinalidad ''{0}'' debe aparecer después de una partícula válida.</target>
+        <source xml:space="preserve">Invalid mixed content model: {0}</source>
+        <target xml:space="preserve">Modelo de contenido mixto no válido: {0}</target>
       </segment>
     </unit>
     <unit id="6">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.2</mda:meta>
+          <mda:meta type="resname">ContentModel.1</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="6">
-        <source xml:space="preserve">Invalid content model: {0}</source>
-        <target xml:space="preserve">Modelo de contenido no válido: {0}</target>
+        <source xml:space="preserve">Cardinality operator ''{0}'' must follow a valid particle</source>
+        <target xml:space="preserve">El operador de cardinalidad ''{0}'' debe aparecer después de una partícula válida.</target>
       </segment>
     </unit>
     <unit id="7">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.3</mda:meta>
+          <mda:meta type="resname">ContentModel.2</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="7">
-        <source xml:space="preserve">Empty group found in content model</source>
-        <target xml:space="preserve">Se encontró un grupo vacío en el modelo de contenido</target>
+        <source xml:space="preserve">Invalid content model: {0}</source>
+        <target xml:space="preserve">Modelo de contenido no válido: {0}</target>
       </segment>
     </unit>
     <unit id="8">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.4</mda:meta>
+          <mda:meta type="resname">ContentModel.3</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="8">
-        <source xml:space="preserve">No separator found when parsing group</source>
-        <target xml:space="preserve">No se encontró separador al analizar grupo</target>
+        <source xml:space="preserve">Empty group found in content model</source>
+        <target xml:space="preserve">Se encontró un grupo vacío en el modelo de contenido</target>
       </segment>
     </unit>
     <unit id="9">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.5</mda:meta>
+          <mda:meta type="resname">ContentModel.4</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="9">
-        <source xml:space="preserve">Unbalanced parentheses in content model: {0}</source>
-        <target xml:space="preserve">Paréntesis desequilibrados en el modelo de contenido: {0}</target>
+        <source xml:space="preserve">No separator found when parsing group</source>
+        <target xml:space="preserve">No se encontró separador al analizar grupo</target>
       </segment>
     </unit>
     <unit id="10">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">ContentModel.6</mda:meta>
+          <mda:meta type="resname">ContentModel.5</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="10">
-        <source xml:space="preserve">Invalid token in content model: {0}</source>
-        <target xml:space="preserve">Token no válido en el modelo de contenido: {0}</target>
+        <source xml:space="preserve">Unbalanced parentheses in content model: {0}</source>
+        <target xml:space="preserve">Paréntesis desequilibrados en el modelo de contenido: {0}</target>
       </segment>
     </unit>
     <unit id="11">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">CustomContentHandler.0</mda:meta>
+          <mda:meta type="resname">ContentModel.6</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="11">
-        <source xml:space="preserve">Malformed content found</source>
-        <target xml:space="preserve">Se ha encontrado contenido con formato incorrecto</target>
+        <source xml:space="preserve">Invalid token in content model: {0}</source>
+        <target xml:space="preserve">Token no válido en el modelo de contenido: {0}</target>
       </segment>
     </unit>
     <unit id="12">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">Document.0</mda:meta>
+          <mda:meta type="resname">CustomContentHandler.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="12">
-        <source xml:space="preserve">Prolog contains wrong content type</source>
-        <target xml:space="preserve">Prólogo contiene un tipo de contenido incorrecto</target>
+        <source xml:space="preserve">Malformed content found</source>
+        <target xml:space="preserve">Se ha encontrado contenido con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="13">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.0</mda:meta>
+          <mda:meta type="resname">Document.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="13">
-        <source xml:space="preserve">Malformed entity reference</source>
-        <target xml:space="preserve">Referencia de entidad con formato incorrecto</target>
+        <source xml:space="preserve">Prolog contains wrong content type</source>
+        <target xml:space="preserve">Prólogo contiene un tipo de contenido incorrecto</target>
       </segment>
     </unit>
     <unit id="14">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.1</mda:meta>
+          <mda:meta type="resname">DTDParser.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="14">
-        <source xml:space="preserve">Referenced undeclared entity {0}</source>
-        <target xml:space="preserve">Entidad no declarada referenciada {0}</target>
+        <source xml:space="preserve">Malformed entity reference</source>
+        <target xml:space="preserve">Referencia de entidad con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="15">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.10</mda:meta>
+          <mda:meta type="resname">DTDParser.1</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="15">
-        <source xml:space="preserve">Malformed comment</source>
-        <target xml:space="preserve">Comentario mal formado</target>
+        <source xml:space="preserve">Referenced undeclared entity {0}</source>
+        <target xml:space="preserve">Entidad no declarada referenciada {0}</target>
       </segment>
     </unit>
     <unit id="16">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.11</mda:meta>
+          <mda:meta type="resname">DTDParser.10</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="16">
-        <source xml:space="preserve">Malformed conditional section</source>
-        <target xml:space="preserve">Sección condicional con formato incorrecto</target>
+        <source xml:space="preserve">Malformed comment</source>
+        <target xml:space="preserve">Comentario mal formado</target>
       </segment>
     </unit>
     <unit id="17">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.12</mda:meta>
+          <mda:meta type="resname">DTDParser.11</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="17">
-        <source xml:space="preserve">Text before: {0}</source>
-        <target xml:space="preserve">Texto antes: {0}</target>
+        <source xml:space="preserve">Malformed conditional section</source>
+        <target xml:space="preserve">Sección condicional con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="18">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.13</mda:meta>
+          <mda:meta type="resname">DTDParser.12</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="18">
-        <source xml:space="preserve">Text after: {0}</source>
-        <target xml:space="preserve">Texto después: {0}</target>
+        <source xml:space="preserve">Text before: {0}</source>
+        <target xml:space="preserve">Texto antes: {0}</target>
       </segment>
     </unit>
     <unit id="19">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.14</mda:meta>
+          <mda:meta type="resname">DTDParser.13</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="19">
-        <source xml:space="preserve">Error parsing DTD ''{0}''</source>
-        <target xml:space="preserve">Error al analizar DTD ''{0}''</target>
+        <source xml:space="preserve">Text after: {0}</source>
+        <target xml:space="preserve">Texto después: {0}</target>
       </segment>
     </unit>
     <unit id="20">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.15</mda:meta>
+          <mda:meta type="resname">DTDParser.14</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="20">
-        <source xml:space="preserve">Unknown parameter entity ''{0}'' referenced in {1}</source>
-        <target xml:space="preserve">Entidad de parámetro desconocida ''{0}'' referenciada en {1}</target>
+        <source xml:space="preserve">Error parsing DTD ''{0}''</source>
+        <target xml:space="preserve">Error al analizar DTD ''{0}''</target>
       </segment>
     </unit>
     <unit id="21">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.16</mda:meta>
+          <mda:meta type="resname">DTDParser.15</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="21">
-        <source xml:space="preserve">Broken parameter entity found in {1}</source>
-        <target xml:space="preserve">Entidad de parámetro dañada encontrada en ''{0}''</target>
+        <source xml:space="preserve">Unknown parameter entity ''{0}'' referenced in {1}</source>
+        <target xml:space="preserve">Entidad de parámetro desconocida ''{0}'' referenciada en {1}</target>
       </segment>
     </unit>
     <unit id="22">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.2</mda:meta>
+          <mda:meta type="resname">DTDParser.16</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="22">
-        <source xml:space="preserve">Error parsing referenced entity %{0};</source>
-        <target xml:space="preserve">Error al analizar la entidad referenciada %{0};</target>
+        <source xml:space="preserve">Broken parameter entity found in {1}</source>
+        <target xml:space="preserve">Entidad de parámetro dañada encontrada en ''{0}''</target>
       </segment>
     </unit>
     <unit id="23">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.3</mda:meta>
+          <mda:meta type="resname">DTDParser.2</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="23">
-        <source xml:space="preserve">Module ''{0}'' not found</source>
-        <target xml:space="preserve">Módulo ''{0}'' no encontrado</target>
+        <source xml:space="preserve">Error parsing referenced entity %{0};</source>
+        <target xml:space="preserve">Error al analizar la entidad referenciada %{0};</target>
       </segment>
     </unit>
     <unit id="24">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.4</mda:meta>
+          <mda:meta type="resname">DTDParser.3</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="24">
-        <source xml:space="preserve">Malformed element declaration</source>
-        <target xml:space="preserve">Declaración de elementos con formato incorrecto</target>
+        <source xml:space="preserve">Module ''{0}'' not found</source>
+        <target xml:space="preserve">Módulo ''{0}'' no encontrado</target>
       </segment>
     </unit>
     <unit id="25">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.5</mda:meta>
+          <mda:meta type="resname">DTDParser.4</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="25">
-        <source xml:space="preserve">Malformed attribute declaration</source>
-        <target xml:space="preserve">Declaración de atributo con formato incorrecto</target>
+        <source xml:space="preserve">Malformed element declaration</source>
+        <target xml:space="preserve">Declaración de elementos con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="26">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.6</mda:meta>
+          <mda:meta type="resname">DTDParser.5</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="26">
-        <source xml:space="preserve">Malformed entity declaration</source>
-        <target xml:space="preserve">Declaración de entidad con formato incorrecto</target>
+        <source xml:space="preserve">Malformed attribute declaration</source>
+        <target xml:space="preserve">Declaración de atributo con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="27">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.7</mda:meta>
+          <mda:meta type="resname">DTDParser.6</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="27">
-        <source xml:space="preserve">Duplicated entity declaration {0}</source>
-        <target xml:space="preserve">Declaración de entidad duplicada {0}</target>
+        <source xml:space="preserve">Malformed entity declaration</source>
+        <target xml:space="preserve">Declaración de entidad con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="28">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.8</mda:meta>
+          <mda:meta type="resname">DTDParser.7</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="28">
-        <source xml:space="preserve">Malformed notation declaration</source>
-        <target xml:space="preserve">Declaración de notación con formato incorrecto</target>
+        <source xml:space="preserve">Duplicated entity declaration {0}</source>
+        <target xml:space="preserve">Declaración de entidad duplicada {0}</target>
       </segment>
     </unit>
     <unit id="29">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">DTDParser.9</mda:meta>
+          <mda:meta type="resname">DTDParser.8</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="29">
-        <source xml:space="preserve">Malformed processing instruction</source>
-        <target xml:space="preserve">Instrucción de procesamiento con formato incorrecto</target>
+        <source xml:space="preserve">Malformed notation declaration</source>
+        <target xml:space="preserve">Declaración de notación con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="30">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">Element.0</mda:meta>
+          <mda:meta type="resname">DTDParser.9</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="30">
-        <source xml:space="preserve">Element contains wrong content type</source>
-        <target xml:space="preserve">El elemento contiene un tipo de contenido incorrecto</target>
+        <source xml:space="preserve">Malformed processing instruction</source>
+        <target xml:space="preserve">Instrucción de procesamiento con formato incorrecto</target>
       </segment>
     </unit>
     <unit id="31">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">RelaxNGParser.0</mda:meta>
+          <mda:meta type="resname">Element.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="31">
-        <source xml:space="preserve">Missing ''{0}'' in &lt;include&gt;</source>
-        <target xml:space="preserve">Falta ''{0}'' en &lt;include&gt;</target>
+        <source xml:space="preserve">Element contains wrong content type</source>
+        <target xml:space="preserve">El elemento contiene un tipo de contenido incorrecto</target>
       </segment>
     </unit>
     <unit id="32">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">RelaxNGParser.1</mda:meta>
+          <mda:meta type="resname">RelaxNGParser.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="32">
-        <source xml:space="preserve">Missing ''{0}'' in &lt;externalRef&gt;</source>
-        <target xml:space="preserve">Falta ''{0}'' en &lt;externalRef&gt;</target>
+        <source xml:space="preserve">Missing ''{0}'' in &lt;include&gt;</source>
+        <target xml:space="preserve">Falta ''{0}'' en &lt;include&gt;</target>
       </segment>
     </unit>
     <unit id="33">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">SAXBuilder.1</mda:meta>
+          <mda:meta type="resname">RelaxNGParser.1</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="33">
-        <source xml:space="preserve">File ''{0}'' does not exist</source>
-        <target xml:space="preserve">El archivo ''{0}'' no existe</target>
+        <source xml:space="preserve">Missing ''{0}'' in &lt;externalRef&gt;</source>
+        <target xml:space="preserve">Falta ''{0}'' en &lt;externalRef&gt;</target>
       </segment>
     </unit>
     <unit id="34">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">XMLOutputter.0</mda:meta>
+          <mda:meta type="resname">SAXBuilder.1</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="34">
-        <source xml:space="preserve">Header contains wrong content type</source>
-        <target xml:space="preserve">El encabezado contiene un tipo de contenido incorrecto</target>
+        <source xml:space="preserve">File ''{0}'' does not exist</source>
+        <target xml:space="preserve">El archivo ''{0}'' no existe</target>
       </segment>
     </unit>
     <unit id="35">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">XMLOutputter.1</mda:meta>
+          <mda:meta type="resname">XMLOutputter.0</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="35">
-        <source xml:space="preserve">Unknown node type</source>
-        <target xml:space="preserve">Tipo de nodo desconocido</target>
+        <source xml:space="preserve">Header contains wrong content type</source>
+        <target xml:space="preserve">El encabezado contiene un tipo de contenido incorrecto</target>
       </segment>
     </unit>
     <unit id="36">
       <mda:metadata>
         <mda:metaGroup category="transUnitAttributes">
-          <mda:meta type="resname">XMLUtils.1</mda:meta>
+          <mda:meta type="resname">XMLOutputter.1</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
       <segment state="final" id="36">
+        <source xml:space="preserve">Unknown node type</source>
+        <target xml:space="preserve">Tipo de nodo desconocido</target>
+      </segment>
+    </unit>
+    <unit id="37">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XMLUtils.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="37">
         <source xml:space="preserve">Error reading BOM from {0}</source>
         <target xml:space="preserve">Error al leer Marca de Orden de Bytes (BOM) de {0}</target>
       </segment>

@@ -352,7 +352,7 @@ public class Catalog implements EntityResolver2 {
         return null;
     }
 
-    private InputSource resolveHttp(URI uri) throws MalformedURLException, IOException {
+    private InputSource resolveHttp(URI uri) throws IOException {
         MessageFormat mf = new MessageFormat(Messages.getString("Catalog.3"));
         logger.log(Level.WARNING, mf.format(new String[] { uri.toURL().toString() }));
         URL url = uri.toURL();
@@ -457,28 +457,21 @@ public class Catalog implements EntityResolver2 {
     }
 
     public String getDTD(String name) {
-        if (name != null) {
-            return dtdCatalog.get(name);
-        }
-        return null;
+        return name != null ? dtdCatalog.get(name) : null;
     }
 
     public void addDtdPublicEntity(String publicId, String path) {
         if (dtdPublicEntities == null) {
             dtdPublicEntities = new Hashtable<>();
         }
-        if (!dtdPublicEntities.containsKey(publicId)) {
-            dtdPublicEntities.put(publicId, path);
-        }
+        dtdPublicEntities.computeIfAbsent(publicId, k -> path);
     }
 
     public void addDtdSystemEntity(String systemId, String path) {
         if (dtdSystemEntities == null) {
             dtdSystemEntities = new Hashtable<>();
         }
-        if (!dtdSystemEntities.containsKey(systemId)) {
-            dtdSystemEntities.put(systemId, path);
-        }
+        dtdSystemEntities.computeIfAbsent(systemId, k -> path);
     }
 
     public void parseDTD(String publicId) {

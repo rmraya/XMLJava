@@ -23,13 +23,14 @@ import org.xml.sax.SAXException;
 
 public class CatalogBuilder {
 
-    private static Map<String,Catalog> map = new Hashtable<>();
+    private static Map<String, Catalog> map = new Hashtable<>();
 
     private CatalogBuilder() {
         // Do not instantiate
     }
 
-    public static Catalog getCatalog(String file) throws SAXException, IOException, ParserConfigurationException, URISyntaxException{
+    public static Catalog getCatalog(String file)
+            throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
         if (!map.containsKey(file)) {
             map.put(file, new Catalog(file));
         }

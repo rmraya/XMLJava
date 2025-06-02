@@ -41,7 +41,7 @@ public class DTDParser {
         notationsMap = new HashMap<>();
     }
 
-    public Grammar parse(File file) throws SAXException, IOException {
+    public Grammar parse(File file) throws SAXException, IOException, IllegalArgumentException {
         String source = readFile(file);
         int pointer = 0;
         while (pointer < source.length()) {

@@ -41,6 +41,10 @@ public class ElementDecl implements XMLNode {
         return name;
     }
 
+    public ContentModel getModel() {
+        return model;
+    }
+    
     @Override
     public short getNodeType() {
         return XMLNode.ELEMENT_DECL_NODE;

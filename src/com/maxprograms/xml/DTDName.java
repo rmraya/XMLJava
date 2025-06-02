@@ -24,6 +24,10 @@ public class DTDName implements ContentParticle {
         this.cardinality = ContentModel.NONE;
     }
 
+    public String getName() {
+        return name;
+    }
+    
     @Override
     public int getType() {
         return ContentParticle.NAME;

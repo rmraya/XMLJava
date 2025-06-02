@@ -12,299 +12,307 @@
 >
 </header>
 <body>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-48" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-48" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
+<seg>Default value not found after #FIXED in ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20250525T100619Z">
+<seg>Valor predeterminado no encontrado después de #FIXED en ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-49" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Error parsing DTD ''{0}''</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Error al analizar DTD ''{0}''</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-49" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-50" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Error connecting to ''{0}'': {1}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Error conectando a ''{0}'': {1}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-50" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-51" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Error  {0} for: {1}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Error  {0} para: {1}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-51" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-52" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Resolving from URL ''{0}''</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Resolviendo desde URL ''{0}''</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-52" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-53" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Invalid mixed content model: {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Modelo de contenido mixto no válido: {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-53" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-54" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Cardinality operator ''{0}'' must follow a valid particle</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>El operador de cardinalidad ''{0}'' debe aparecer después de una partícula válida.</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-54" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-55" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Invalid content model: {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Modelo de contenido no válido: {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-55" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-56" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Empty group found in content model</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Se encontró un grupo vacío en el modelo de contenido</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-56" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-57" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>No separator found when parsing group</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>No se encontró separador al analizar grupo</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-57" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1567" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Unbalanced parentheses in content model: {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Paréntesis desequilibrados en el modelo de contenido: {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1567" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1568" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Invalid token in content model: {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Token no válido en el modelo de contenido: {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1568" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1569" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed content found</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Se ha encontrado contenido con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1569" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1570" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Prolog contains wrong content type</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Prólogo contiene un tipo de contenido incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1570" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1571" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed entity reference</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Referencia de entidad con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1571" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1572" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Referenced undeclared entity {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Entidad no declarada referenciada {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1572" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1573" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed comment</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Comentario mal formado</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1573" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1574" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed conditional section</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Sección condicional con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1574" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1575" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Text before: {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Texto antes: {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1575" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1576" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Text after: {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Texto después: {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1576" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1598" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Error parsing DTD ''{0}''</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Error al analizar DTD ''{0}''</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1598" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1599" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Unknown parameter entity ''{0}'' referenced in {1}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Entidad de parámetro desconocida ''{0}'' referenciada en {1}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1599" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1600" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Broken parameter entity found in {1}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Entidad de parámetro dañada encontrada en ''{0}''</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1600" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1601" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Error parsing referenced entity %{0};</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Error al analizar la entidad referenciada %{0};</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1601" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1602" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Module ''{0}'' not found</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Módulo ''{0}'' no encontrado</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1602" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1603" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed element declaration</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Declaración de elementos con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1603" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1604" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed attribute declaration</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Declaración de atributo con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1604" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1605" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed entity declaration</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Declaración de entidad con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1605" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1606" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Duplicated entity declaration {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Declaración de entidad duplicada {0}</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1606" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1607" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed notation declaration</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Declaración de notación con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1607" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1629" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Malformed processing instruction</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Instrucción de procesamiento con formato incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1629" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1630" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Element contains wrong content type</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>El elemento contiene un tipo de contenido incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1630" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1631" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Missing ''{0}'' in &lt;include&gt;</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Falta ''{0}'' en &lt;include&gt;</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1631" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1632" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Missing ''{0}'' in &lt;externalRef&gt;</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Falta ''{0}'' en &lt;externalRef&gt;</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1632" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1633" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>File ''{0}'' does not exist</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>El archivo ''{0}'' no existe</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1633" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1634" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Header contains wrong content type</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>El encabezado contiene un tipo de contenido incorrecto</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1634" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1635" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Unknown node type</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Tipo de nodo desconocido</seg>
 </tuv>
 </tu>
-<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1635" creationdate="20250523T155950Z">
-<tuv xml:lang="en" creationdate="20250523T155950Z">
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.13.0" tuid="2141531691-0-1636" creationdate="20250525T100619Z">
+<tuv xml:lang="en" creationdate="20250525T100619Z">
 <seg>Error reading BOM from {0}</seg>
 </tuv>
-<tuv xml:lang="es" creationdate="20250523T155950Z">
+<tuv xml:lang="es" creationdate="20250525T100619Z">
 <seg>Error al leer Marca de Orden de Bytes (BOM) de {0}</seg>
 </tuv>
 </tu>

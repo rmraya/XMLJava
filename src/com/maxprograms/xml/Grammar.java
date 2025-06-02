@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.Vector;
 
 public class Grammar {
@@ -88,5 +89,34 @@ public class Grammar {
 
     public Map<String, NotationDecl> getNotationsMap() {
         return notationsMap;
+    }
+
+    public String getRootElement() {
+        Set<String> discarded = new TreeSet<>();
+        Set<String> keys = elementDeclMap.keySet();
+        Iterator<String> it = keys.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            ElementDecl elementDecl = elementDeclMap.get(key);
+            ContentModel model = elementDecl.getModel();
+            Set<String> children = model.getChildren();
+            discarded.addAll(children);
+        }
+        if (keys.size() - discarded.size() != 1) {
+            return "";
+        }
+        it = keys.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            if (!discarded.contains(key)) {
+                ElementDecl elementDecl = elementDeclMap.get(key);
+                ContentModel model = elementDecl.getModel();
+                if (model.getType().equals(ContentModel.EMPTY)) {
+                    return "";
+                }
+                return key;
+            }
+        }
+        return "";
     }
 }
