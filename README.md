@@ -16,14 +16,14 @@ Features in development:
 
 ## Building
 
-You need Java 21 and [Apache Ant 1.10.14](https://ant.apache.org) or newer
+You need Java 21 and [Gradle](https://gradle.org/)
 
 - Point your JAVA_HOME variable to JDK 21
 - Checkout this repository
-- Run `ant` to compile the source code
+- Run `gradle` to compile the source code
 
 ``` text
 git clone https://github.com/rmraya/XMLJava.git
 cd XMLJava
-ant
+gradle
 ```
