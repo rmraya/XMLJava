@@ -3,4 +3,5 @@ bin/
 .scannerwork/
 .vscode/
 .gradle/
+.settings/
 build/
