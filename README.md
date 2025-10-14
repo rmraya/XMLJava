@@ -19,7 +19,7 @@ XMLJava is licensed under the [**GNU Affero General Public License v3.0**](LICEN
 
 ### 💼 Commercial License
 
-For organizations that cannot comply with AGPL-3.0 copyleft requirements, [commercial licenses](LICENSE-COMMERCIAL) are available.
+For organizations that cannot comply with AGPL-3.0 copyleft requirements, [commercial licenses](LICENSE-COMMERCIAL.md) are available.
 
 **Use Commercial License for:**
 
