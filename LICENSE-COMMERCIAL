@@ -1,10 +1,10 @@
-# TypesXML Commercial License
+# XMLJava Commercial License
 
-Copyright (c) 2023-2025 Maxprograms
+Copyright (c) 2022-2025 Maxprograms
 
 ## Commercial License Terms
 
-This commercial license allows you to use TypesXML in proprietary applications
+This commercial license allows you to use XMLJava in proprietary applications
 without the copyleft requirements of the AGPL-3.0 license.
 
 ### Permitted Uses
@@ -27,12 +27,12 @@ without the copyleft requirements of the AGPL-3.0 license.
 
 Subject to the terms and conditions of this license and payment of applicable
 license fees, Maxprograms grants you a non-exclusive, non-transferable license
-to use TypesXML in your commercial applications.
+to use XMLJava in your commercial applications.
 
 ### Restrictions
 
 - License is non-transferable without written consent
-- No sublicensing or redistribution of TypesXML itself
+- No sublicensing or redistribution of XMLJava itself
 - Must comply with export control laws
 - Cannot reverse engineer or create derivative works of the license system
 
@@ -48,7 +48,7 @@ Commercial license includes:
 ### Termination
 
 This license terminates automatically if you violate any terms. Upon termination,
-you must cease all use and destroy all copies of TypesXML.
+you must cease all use and destroy all copies of XMLJava.
 
 ---
 

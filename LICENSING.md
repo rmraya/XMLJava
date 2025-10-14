@@ -1,10 +1,10 @@
-# TypesXML Dual Licensing
+# XMLJava Dual Licensing
 
-TypesXML is available under two licensing options to serve both open source and commercial users:
+XMLJava is available under two licensing options to serve both open source and commercial users:
 
 ## 🆓 Open Source License (AGPL-3.0)
 
-TypesXML is licensed under the **GNU Affero General Public License v3.0** for open source use.
+XMLJava is licensed under the **GNU Affero General Public License v3.0** for open source use.
 
 ### Permitted Uses Under AGPL-3.0
 
@@ -16,9 +16,9 @@ TypesXML is licensed under the **GNU Affero General Public License v3.0** for op
 
 ### AGPL-3.0 Requirements
 
-When using TypesXML under AGPL-3.0, you must:
+When using XMLJava under AGPL-3.0, you must:
 
-- 📝 **Share source code** of any modifications to TypesXML
+- 📝 **Share source code** of any modifications to XMLJava
 - 📝 **Share source code** of your entire application
 - 📝 **Use AGPL-compatible license** for your project
 - 📝 **Provide source access** to all users (including SaaS users)
@@ -32,7 +32,7 @@ For organizations that cannot comply with AGPL-3.0 requirements, we offer commer
 
 - ❌ **Proprietary software** distribution
 - ❌ **SaaS applications** without source sharing
-- ❌ **Commercial products** embedding TypesXML
+- ❌ **Commercial products** embedding XMLJava
 - ❌ **Closed-source applications**
 - ❌ **Cannot meet AGPL copyleft requirements**
 
@@ -63,14 +63,14 @@ For organizations that cannot comply with AGPL-3.0 requirements, we offer commer
 
 ### Using Under AGPL-3.0
 
-1. Install TypesXML: `npm install typesxml`
+1. Install XMLJava: `npm install XMLJava`
 2. Review [AGPL-3.0 requirements](./LICENSE)
 3. Ensure your project is AGPL-compatible
 4. Include proper attribution and license notices
 
 ### Commercial Licensing
 
-1. **Evaluate** TypesXML in your application
+1. **Evaluate** XMLJava in your application
 2. **Contact us** for licensing discussion
 3. **Receive** commercial license agreement
 4. **Deploy** with full legal protection
@@ -81,7 +81,7 @@ For organizations that cannot comply with AGPL-3.0 requirements, we offer commer
 
 ## Frequently Asked Questions
 
-### Q: Can I try TypesXML before purchasing a commercial license?
+### Q: Can I try XMLJava before purchasing a commercial license?
 
 **A:** Yes! The AGPL-3.0 version includes all features. You can evaluate it fully before deciding on commercial licensing.
 
@@ -89,7 +89,7 @@ For organizations that cannot comply with AGPL-3.0 requirements, we offer commer
 
 **A:** The code is identical. The difference is in usage rights and obligations.
 
-### Q: Can I use TypesXML in my MIT-licensed project?
+### Q: Can I use XMLJava in my MIT-licensed project?
 
 **A:** No, AGPL-3.0 is not compatible with MIT. You would need a commercial license.
 
@@ -103,7 +103,7 @@ For organizations that cannot comply with AGPL-3.0 requirements, we offer commer
 
 ## Legal Information
 
-- **Copyright:** © 2023-2025 Maxprograms
+- **Copyright:** © 2022-2025 Maxprograms
 - **Open Source License:** [GNU AGPL-3.0](./LICENSE)
 - **Commercial License:** [Commercial Terms](./LICENSE-COMMERCIAL)
-- **Trademark:** TypesXML is a trademark of Maxprograms
+- **Trademark:** XMLJava is a trademark of Maxprograms
