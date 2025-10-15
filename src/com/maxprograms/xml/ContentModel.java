@@ -187,13 +187,39 @@ public class ContentModel {
 
     @Override
     public String toString() {
+        if (type.equals(EMPTY)) {
+            return EMPTY;
+        }
+        if (type.equals(ANY)) {
+            return ANY;
+        }
+        if (content.isEmpty()) {
+            return "";
+        }
+        
         StringBuilder sb = new StringBuilder();
-        String separator = type.equals("|") ? "|" : ",";
+        
+        // For MIXED content, handle specially
+        if (type.equals(MIXED)) {
+            sb.append("(");
+            for (int i = 0; i < content.size(); i++) {
+                ContentParticle particle = content.get(i);
+                sb.append(particle.toString());
+                if (i < content.size() - 1) {
+                    sb.append("|");
+                }
+            }
+            sb.append(")*");
+            return sb.toString();
+        }
+        
+        // For CHILDREN content, the particles themselves determine the structure
         for (int i = 0; i < content.size(); i++) {
             ContentParticle particle = content.get(i);
             sb.append(particle.toString());
             if (i < content.size() - 1) {
-                sb.append(separator);
+                // This should not happen as CHILDREN content typically has a single root particle
+                sb.append(",");
             }
         }
         return sb.toString();
