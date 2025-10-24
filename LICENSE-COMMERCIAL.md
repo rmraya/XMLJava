@@ -1,6 +1,6 @@
 # XMLJava Commercial License
 
-Copyright (c) 2023–2025 Maxprograms
+Copyright (c) 2022–2025 Maxprograms
 
 ## Overview
 
