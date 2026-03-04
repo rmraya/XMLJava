@@ -1,13 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2022-2025 Maxprograms.
+ * Copyright (c) 2022-2026 Maxprograms. All rights reserved.
  *
- * This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License 1.0
- * which accompanies this distribution, and is available at
- * https://www.eclipse.org/org/documents/epl-v10.html
+ * This software is the proprietary property of Maxprograms.
+ * Use, modification, and distribution are subject to the terms of the 
+ * Software License Agreement found in the root of this distribution 
+ * and at http://www.maxprograms.com/
  *
- * Contributors:
- *     Maxprograms - initial API and implementation
+ * Unauthorized redistribution or commercial use is strictly prohibited.
  *******************************************************************************/
 package com.maxprograms.xml;
 
@@ -16,18 +15,18 @@ import java.util.Vector;
 
 public class DTDName implements ContentParticle {
 
-    private String name;
+    private String dtdName;
     private int cardinality;
 
     public DTDName(String name) {
-        this.name = name;
-        this.cardinality = ContentModel.NONE;
+        dtdName = name;
+        cardinality = ContentModel.NONE;
     }
 
     public String getName() {
-        return name;
+        return dtdName;
     }
-    
+
     @Override
     public int getType() {
         return ContentParticle.NAME;
@@ -54,13 +53,13 @@ public class DTDName implements ContentParticle {
     public String toString() {
         switch (cardinality) {
             case ContentModel.NONE:
-                return name;
+                return dtdName;
             case ContentModel.OPTIONAL:
-                return name + "?";
+                return dtdName + "?";
             case ContentModel.ONEMANY:
-                return name + "+";
+                return dtdName + "+";
             case ContentModel.ZEROMANY:
-                return name + "*";
+                return dtdName + "*";
             default:
                 // ignore
                 return "";

@@ -1,21 +1,20 @@
 /*******************************************************************************
- * Copyright (c) 2022-2025 Maxprograms.
+ * Copyright (c) 2022-2026 Maxprograms. All rights reserved.
  *
- * This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License 1.0
- * which accompanies this distribution, and is available at
- * https://www.eclipse.org/org/documents/epl-v10.html
+ * This software is the proprietary property of Maxprograms.
+ * Use, modification, and distribution are subject to the terms of the 
+ * Software License Agreement found in the root of this distribution 
+ * and at http://www.maxprograms.com/
  *
- * Contributors:
- *     Maxprograms - initial API and implementation
+ * Unauthorized redistribution or commercial use is strictly prohibited.
  *******************************************************************************/
 
 package com.maxprograms.xml;
 
 public class Constants {
 
-    public static final String VERSION = "3.1.0";
-    public static final String BUILD = "20251014_2111";
+    public static final String VERSION = "4.0.0";
+    public static final String BUILD = "20260304_1425";
 
     private Constants() {
         // private for security

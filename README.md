@@ -30,4 +30,9 @@ gradle
 
 ## License
 
-This program and the accompanying materials are made available under the terms of the [Eclipse Public License 1.0](LICENSE) which accompanies this distribution.
+This software is source-available and proprietary.  
+You may view and modify the source code for personal, educational, or internal evaluation purposes.
+
+Redistribution, commercial use, or distribution of modified versions is prohibited without prior written permission from Maxprograms.
+
+See the `LICENSE.md` file for full terms.
