@@ -49,9 +49,16 @@ public class Catalog implements EntityResolver2 {
     private Set<String> parsedDTDs;
     private List<String[]> uriRewrites;
     private List<String[]> systemRewrites;
+    private List<String[]> systemSuffixes;
+    private List<String[]> uriSuffixes;
+    private List<String[]> delegatePublics;
+    private List<String[]> delegateSystems;
+    private List<String[]> delegateURIs;
+    private Map<String, Catalog> delegateCatalogs;
     private String workDir;
     private String base = "";
     private String documentParent = "";
+    private String prefer = "public";
 
     protected Catalog(String catalogFile)
             throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
@@ -75,10 +82,19 @@ public class Catalog implements EntityResolver2 {
         uriCatalog = new Hashtable<>();
         uriRewrites = new Vector<>();
         systemRewrites = new Vector<>();
+        systemSuffixes = new Vector<>();
+        uriSuffixes = new Vector<>();
+        delegatePublics = new Vector<>();
+        delegateSystems = new Vector<>();
+        delegateURIs = new Vector<>();
+        delegateCatalogs = new Hashtable<>();
 
         SAXBuilder builder = new SAXBuilder();
         Document doc = builder.build(catalogFile);
         Element root = doc.getRootElement();
+        if (root.hasAttribute("prefer")) {
+            prefer = root.getAttributeValue("prefer");
+        }
         recurse(root);
     }
 
@@ -89,8 +105,13 @@ public class Catalog implements EntityResolver2 {
         while (i.hasNext()) {
             Element child = i.next();
             String currentBase = base;
+            String currentPrefer = prefer;
 
-            if (!child.getAttributeValue("xml:base").isEmpty()) {
+            if (child.hasAttribute("prefer")) {
+                prefer = child.getAttributeValue("prefer");
+            }
+
+            if (child.hasAttribute("xml:base")) {
                 base = child.getAttributeValue("xml:base");
                 File b = new File(base);
                 if (!b.isAbsolute()) {
@@ -112,9 +133,7 @@ public class Catalog implements EntityResolver2 {
                     systemCatalog.put(child.getAttributeValue("systemId"), uri);
                     if (uri.endsWith(".dtd")) {
                         File dtd = new File(uri);
-                        if (!dtdCatalog.containsKey(dtd.getName())) {
-                            dtdCatalog.put(dtd.getName(), dtd.getAbsolutePath());
-                        }
+                        dtdCatalog.computeIfAbsent(dtd.getName(), k -> dtd.getAbsolutePath());
                     }
                 }
             }
@@ -129,9 +148,7 @@ public class Catalog implements EntityResolver2 {
                         publicCatalog.put(publicId, uri);
                         if (uri.endsWith(".dtd")) {
                             File dtd = new File(uri);
-                            if (!dtdCatalog.containsKey(dtd.getName())) {
-                                dtdCatalog.put(dtd.getName(), dtd.getAbsolutePath());
-                            }
+                            dtdCatalog.computeIfAbsent(dtd.getName(), k -> dtd.getAbsolutePath());
                         }
                     }
                 }
@@ -142,9 +159,7 @@ public class Catalog implements EntityResolver2 {
                     uriCatalog.put(child.getAttributeValue("name"), uri);
                     if (uri.endsWith(".dtd")) {
                         File dtd = new File(uri);
-                        if (!dtdCatalog.containsKey(dtd.getName())) {
-                            dtdCatalog.put(dtd.getName(), dtd.getAbsolutePath());
-                        }
+                        dtdCatalog.computeIfAbsent(dtd.getName(), k -> dtd.getAbsolutePath());
                     }
                 }
             }
@@ -152,45 +167,14 @@ public class Catalog implements EntityResolver2 {
                 String nextCatalog = child.getAttributeValue("catalog");
                 File f = new File(nextCatalog);
                 if (!f.isAbsolute()) {
-                    nextCatalog = XMLUtils.getAbsolutePath(workDir, nextCatalog);
+                    nextCatalog = base.isEmpty() ? XMLUtils.getAbsolutePath(workDir, nextCatalog)
+                            : XMLUtils.getAbsolutePath(base, nextCatalog);
                 }
                 Catalog cat = new Catalog(nextCatalog);
-                Map<String, String> table = cat.getSystemCatalog();
-                Iterator<String> it = table.keySet().iterator();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    if (!systemCatalog.containsKey(key)) {
-                        String value = table.get(key);
-                        systemCatalog.put(key, value);
-                    }
-                }
-                table = cat.getPublicCatalog();
-                it = table.keySet().iterator();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    if (!publicCatalog.containsKey(key)) {
-                        String value = table.get(key);
-                        publicCatalog.put(key, value);
-                    }
-                }
-                table = cat.getUriCatalog();
-                it = table.keySet().iterator();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    if (!uriCatalog.containsKey(key)) {
-                        String value = table.get(key);
-                        uriCatalog.put(key, value);
-                    }
-                }
-                table = cat.getDtdCatalog();
-                it = table.keySet().iterator();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    if (!dtdCatalog.containsKey(key)) {
-                        String value = table.get(key);
-                        dtdCatalog.put(key, value);
-                    }
-                }
+                cat.getSystemCatalog().forEach(systemCatalog::putIfAbsent);
+                cat.getPublicCatalog().forEach(publicCatalog::putIfAbsent);
+                cat.getUriCatalog().forEach(uriCatalog::putIfAbsent);
+                cat.getDtdCatalog().forEach(dtdCatalog::putIfAbsent);
                 List<String[]> system = cat.getSystemRewrites();
                 for (int h = 0; h < system.size(); h++) {
                     String[] pair = system.get(h);
@@ -198,13 +182,90 @@ public class Catalog implements EntityResolver2 {
                         systemRewrites.add(pair);
                     }
                 }
-                List<String[]> uris = cat.getUriRewrites();
-                for (int h = 0; h < uris.size(); h++) {
-                    String[] pair = uris.get(h);
+                List<String[]> uriList = cat.getUriRewrites();
+                for (int h = 0; h < uriList.size(); h++) {
+                    String[] pair = uriList.get(h);
                     if (!uriRewrites.contains(pair)) {
                         uriRewrites.add(pair);
                     }
                 }
+                List<String[]> sysSuffixes = cat.getSystemSuffixes();
+                for (int h = 0; h < sysSuffixes.size(); h++) {
+                    systemSuffixes.add(sysSuffixes.get(h));
+                }
+                List<String[]> uriSuffs = cat.getUriSuffixes();
+                for (int h = 0; h < uriSuffs.size(); h++) {
+                    uriSuffixes.add(uriSuffs.get(h));
+                }
+                List<String[]> delPubs = cat.getDelegatePublics();
+                for (int h = 0; h < delPubs.size(); h++) {
+                    delegatePublics.add(delPubs.get(h));
+                }
+                List<String[]> delSys = cat.getDelegateSystems();
+                for (int h = 0; h < delSys.size(); h++) {
+                    delegateSystems.add(delSys.get(h));
+                }
+                List<String[]> delURIs = cat.getDelegateURIs();
+                for (int h = 0; h < delURIs.size(); h++) {
+                    delegateURIs.add(delURIs.get(h));
+                }
+                Map<String, Catalog> delCats = cat.getDelegateCatalogs();
+                for (Map.Entry<String, Catalog> entry : delCats.entrySet()) {
+                    delegateCatalogs.putIfAbsent(entry.getKey(), entry.getValue());
+                }
+            }
+            if (child.getName().equals("systemSuffix")) {
+                String suffix = child.getAttributeValue("systemIdSuffix");
+                String uri = makeAbsolute(child.getAttributeValue("uri"));
+                if (validate(uri)) {
+                    systemSuffixes.add(new String[] { suffix, uri });
+                }
+            }
+            if (child.getName().equals("uriSuffix")) {
+                String suffix = child.getAttributeValue("uriSuffix");
+                String uri = makeAbsolute(child.getAttributeValue("uri"));
+                if (validate(uri)) {
+                    uriSuffixes.add(new String[] { suffix, uri });
+                }
+            }
+            if (child.getName().equals("delegatePublic")) {
+                String prefix = child.getAttributeValue("publicIdStartString");
+                String catalogRef = child.getAttributeValue("catalog");
+                File fc = new File(catalogRef);
+                if (!fc.isAbsolute()) {
+                    catalogRef = base.isEmpty() ? XMLUtils.getAbsolutePath(workDir, catalogRef)
+                            : XMLUtils.getAbsolutePath(base, catalogRef);
+                }
+                if (!delegateCatalogs.containsKey(catalogRef)) {
+                    delegateCatalogs.put(catalogRef, new Catalog(catalogRef));
+                }
+                delegatePublics.add(new String[] { prefix, catalogRef });
+            }
+            if (child.getName().equals("delegateSystem")) {
+                String prefix = child.getAttributeValue("systemIdStartString");
+                String catalogRef = child.getAttributeValue("catalog");
+                File fc = new File(catalogRef);
+                if (!fc.isAbsolute()) {
+                    catalogRef = base.isEmpty() ? XMLUtils.getAbsolutePath(workDir, catalogRef)
+                            : XMLUtils.getAbsolutePath(base, catalogRef);
+                }
+                if (!delegateCatalogs.containsKey(catalogRef)) {
+                    delegateCatalogs.put(catalogRef, new Catalog(catalogRef));
+                }
+                delegateSystems.add(new String[] { prefix, catalogRef });
+            }
+            if (child.getName().equals("delegateURI")) {
+                String prefix = child.getAttributeValue("uriStartString");
+                String catalogRef = child.getAttributeValue("catalog");
+                File fc = new File(catalogRef);
+                if (!fc.isAbsolute()) {
+                    catalogRef = base.isEmpty() ? XMLUtils.getAbsolutePath(workDir, catalogRef)
+                            : XMLUtils.getAbsolutePath(base, catalogRef);
+                }
+                if (!delegateCatalogs.containsKey(catalogRef)) {
+                    delegateCatalogs.put(catalogRef, new Catalog(catalogRef));
+                }
+                delegateURIs.add(new String[] { prefix, catalogRef });
             }
             if (child.getName().equals("rewriteSystem")) {
                 String uri = makeAbsolute(child.getAttributeValue("rewritePrefix"));
@@ -222,6 +283,7 @@ public class Catalog implements EntityResolver2 {
             }
             recurse(child);
             base = currentBase;
+            prefer = currentPrefer;
         }
     }
 
@@ -254,7 +316,7 @@ public class Catalog implements EntityResolver2 {
     }
 
     private Map<String, String> getDtdCatalog() {
-        return uriCatalog;
+        return dtdCatalog;
     }
 
     private List<String[]> getSystemRewrites() {
@@ -265,17 +327,54 @@ public class Catalog implements EntityResolver2 {
         return uriRewrites;
     }
 
+    private List<String[]> getSystemSuffixes() {
+        return systemSuffixes;
+    }
+
+    private List<String[]> getUriSuffixes() {
+        return uriSuffixes;
+    }
+
+    private List<String[]> getDelegatePublics() {
+        return delegatePublics;
+    }
+
+    private List<String[]> getDelegateSystems() {
+        return delegateSystems;
+    }
+
+    private List<String[]> getDelegateURIs() {
+        return delegateURIs;
+    }
+
+    private Map<String, Catalog> getDelegateCatalogs() {
+        return delegateCatalogs;
+    }
+
     @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-        if (publicId != null) {
-            String location = matchPublic(publicId);
+        if ("system".equals(prefer)) {
+            String location = matchSystem(null, systemId);
             if (location != null) {
                 return new InputSource(new FileInputStream(location));
             }
-        }
-        String location = matchSystem(null, systemId);
-        if (location != null) {
-            return new InputSource(new FileInputStream(location));
+            if (publicId != null) {
+                location = matchPublic(publicId);
+                if (location != null) {
+                    return new InputSource(new FileInputStream(location));
+                }
+            }
+        } else {
+            if (publicId != null) {
+                String location = matchPublic(publicId);
+                if (location != null) {
+                    return new InputSource(new FileInputStream(location));
+                }
+            }
+            String location = matchSystem(null, systemId);
+            if (location != null) {
+                return new InputSource(new FileInputStream(location));
+            }
         }
         return null;
     }
@@ -307,15 +406,28 @@ public class Catalog implements EntityResolver2 {
     @Override
     public InputSource resolveEntity(String name, String publicId, String baseURI, String systemId)
             throws SAXException, IOException {
-        if (publicId != null) {
-            String location = matchPublic(publicId);
+        if ("system".equals(prefer)) {
+            String location = matchSystem(baseURI, systemId);
             if (location != null) {
                 return new InputSource(new FileInputStream(location));
             }
-        }
-        String location = matchSystem(baseURI, systemId);
-        if (location != null) {
-            return new InputSource(new FileInputStream(location));
+            if (publicId != null) {
+                location = matchPublic(publicId);
+                if (location != null) {
+                    return new InputSource(new FileInputStream(location));
+                }
+            }
+        } else {
+            if (publicId != null) {
+                String location = matchPublic(publicId);
+                if (location != null) {
+                    return new InputSource(new FileInputStream(location));
+                }
+            }
+            String location = matchSystem(baseURI, systemId);
+            if (location != null) {
+                return new InputSource(new FileInputStream(location));
+            }
         }
 
         // This DTD is not in the catalog,
@@ -376,6 +488,20 @@ public class Catalog implements EntityResolver2 {
             if (publicId.startsWith("urn:publicid:")) {
                 publicId = unwrapUrn(publicId);
             }
+            String bestPrefix = null;
+            String bestCatalogFile = null;
+            for (String[] entry : delegatePublics) {
+                if (publicId.startsWith(entry[0])) {
+                    if (bestPrefix == null || entry[0].length() > bestPrefix.length()) {
+                        bestPrefix = entry[0];
+                        bestCatalogFile = entry[1];
+                    }
+                }
+            }
+            if (bestCatalogFile != null) {
+                Catalog delegate = delegateCatalogs.get(bestCatalogFile);
+                return delegate != null ? delegate.matchPublic(publicId) : null;
+            }
             if (publicCatalog.containsKey(publicId)) {
                 return publicCatalog.get(publicId);
             }
@@ -390,6 +516,33 @@ public class Catalog implements EntityResolver2 {
                 if (systemId.startsWith(pair[0])) {
                     systemId = pair[1] + systemId.substring(pair[0].length());
                 }
+            }
+            String bestPrefix = null;
+            String bestCatalogFile = null;
+            for (String[] entry : delegateSystems) {
+                if (systemId.startsWith(entry[0])) {
+                    if (bestPrefix == null || entry[0].length() > bestPrefix.length()) {
+                        bestPrefix = entry[0];
+                        bestCatalogFile = entry[1];
+                    }
+                }
+            }
+            if (bestCatalogFile != null) {
+                Catalog delegate = delegateCatalogs.get(bestCatalogFile);
+                return delegate != null ? delegate.matchSystem(baseURI, systemId) : null;
+            }
+            String bestSuffix = null;
+            String bestSuffixUri = null;
+            for (String[] entry : systemSuffixes) {
+                if (systemId.endsWith(entry[0])) {
+                    if (bestSuffix == null || entry[0].length() > bestSuffix.length()) {
+                        bestSuffix = entry[0];
+                        bestSuffixUri = entry[1];
+                    }
+                }
+            }
+            if (bestSuffixUri != null) {
+                return bestSuffixUri;
             }
             if (systemCatalog.containsKey(systemId)) {
                 return systemCatalog.get(systemId);
@@ -435,15 +588,42 @@ public class Catalog implements EntityResolver2 {
                     uri = pair[1] + uri.substring(pair[0].length());
                 }
             }
+            String bestPrefix = null;
+            String bestCatalogFile = null;
+            for (String[] entry : delegateURIs) {
+                if (uri.startsWith(entry[0])) {
+                    if (bestPrefix == null || entry[0].length() > bestPrefix.length()) {
+                        bestPrefix = entry[0];
+                        bestCatalogFile = entry[1];
+                    }
+                }
+            }
+            if (bestCatalogFile != null) {
+                Catalog delegate = delegateCatalogs.get(bestCatalogFile);
+                return delegate != null ? delegate.matchURI(uri) : null;
+            }
+            String bestSuffix = null;
+            String bestSuffixUri = null;
+            for (String[] entry : uriSuffixes) {
+                if (uri.endsWith(entry[0])) {
+                    if (bestSuffix == null || entry[0].length() > bestSuffix.length()) {
+                        bestSuffix = entry[0];
+                        bestSuffixUri = entry[1];
+                    }
+                }
+            }
+            if (bestSuffixUri != null) {
+                return bestSuffixUri;
+            }
             if (uriCatalog.containsKey(uri)) {
                 return uriCatalog.get(uri);
             }
             try {
                 URI u = new URI(uri).normalize();
-                if (u.toURL().getProtocol().startsWith("file")) {
+                if (u.isAbsolute() && u.toURL().getProtocol().startsWith("file")) {
                     return u.toString();
                 }
-            } catch (URISyntaxException | MalformedURLException e) {
+            } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
                 // ignore
             }
         }

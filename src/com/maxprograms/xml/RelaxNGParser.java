@@ -50,6 +50,9 @@ public class RelaxNGParser {
         root = doc.getRootElement();
         defaultPrefix = root.getNamespace();
         defaultNamespace = root.getAttributeValue("xmlns");
+        if (defaultNamespace.isEmpty() && !defaultPrefix.isEmpty()) {
+            defaultNamespace = root.getAttributeValue("xmlns:" + defaultPrefix);
+        }
         if (XMLConstants.RELAXNG_NS_URI.equals(defaultNamespace)) {
             defaultNamespace = "";
         }
@@ -78,31 +81,75 @@ public class RelaxNGParser {
             Map<String, String> map = new Hashtable<>();
             for (int i = 0; i < attributes.size(); i++) {
                 Element attribute = attributes.get(i);
-                List<Attribute> atts = attribute.getAttributes();
-                for (int j = 0; j < atts.size(); j++) {
-                    Attribute a = atts.get(j);
-                    if ("defaultValue".equals(a.getLocalName())) {
-                        String name = attribute.getChild("name").getText();
-                        if (attribute.getChild("name").getText().indexOf(':') != -1 && !name.startsWith("xml:")) {
-                            continue;
+                String defaultVal = findDefaultValue(attribute);
+                if (defaultVal != null) {
+                    Element nameChild = getChildByLocalName(attribute, "name");
+                    if (nameChild != null) {
+                        String attrName = nameChild.getText().trim();
+                        if (attrName.indexOf(':') == -1 || attrName.startsWith("xml:")) {
+                            map.put(attrName, defaultVal);
                         }
-                        map.put(name, a.getValue());
                     }
                 }
             }
-            if (map.size() > 0) {
-                result.put(e.getChild("name").getText(), map);
+            if (!map.isEmpty()) {
+                Element nameChild = getChildByLocalName(e, "name");
+                if (nameChild != null) {
+                    String lexicalName = nameChild.getText().trim();
+                    result.put(lexicalName, map);
+                    int sepIdx = lexicalName.indexOf(':');
+                    String localName = sepIdx == -1 ? lexicalName : lexicalName.substring(sepIdx + 1);
+                    if (!result.containsKey(localName)) {
+                        result.put(localName, map);
+                    }
+                    String ns = nameChild.getAttributeValue("ns");
+                    if (!ns.isEmpty()) {
+                        result.put(ns + "|" + localName, map);
+                    }
+                }
             }
         }
         return result;
     }
 
+    private String findDefaultValue(Element attributeElement) {
+        for (Attribute a : attributeElement.getAttributes()) {
+            if ("defaultValue".equals(a.getLocalName())) {
+                return a.getValue();
+            }
+        }
+        return findDefaultValueInChildren(attributeElement);
+    }
+
+    private String findDefaultValueInChildren(Element element) {
+        for (Element child : element.getChildren()) {
+            if ("defaultValue".equals(child.getLocalName())) {
+                return child.getText().trim();
+            }
+            String found = findDefaultValueInChildren(child);
+            if (found != null) {
+                return found;
+            }
+        }
+        return null;
+    }
+
+    private Element getChildByLocalName(Element element, String localName) {
+        for (Element child : element.getChildren()) {
+            if (localName.equals(child.getLocalName())) {
+                return child;
+            }
+        }
+        return null;
+    }
+
     private void getAttributes(Element e) {
-        if ("attribute".equals(e.getName())) {
+        String localName = e.getLocalName();
+        if ("attribute".equals(localName)) {
             attributes.add(e);
             return;
         }
-        if ("ref".equals(e.getName())) {
+        if ("ref".equals(localName) || "parentRef".equals(localName)) {
             String name = e.getAttributeValue("name");
             if (!visited.contains(name)) {
                 visited.add(name);
@@ -117,46 +164,97 @@ public class RelaxNGParser {
         Iterator<Element> it = children.iterator();
         while (it.hasNext()) {
             Element child = it.next();
-            if ("element".equals(child.getName())) {
-                return;
+            if ("element".equals(child.getLocalName())) {
+                continue;
             }
             getAttributes(child);
         }
     }
 
     private void nameAttribute(Element e) {
-        if ("element".equals(e.getName()) && e.hasAttribute("name")) {
-            Element name = new Element("name");
+        nameAttribute(e, new HashMap<>());
+    }
+
+    private void nameAttribute(Element e, Map<String, String> context) {
+        Map<String, String> currentContext = augmentNamespaceContext(context, e);
+        boolean isElementPattern = "element".equals(e.getLocalName());
+        boolean isAttributePattern = "attribute".equals(e.getLocalName());
+        if ((isElementPattern || isAttributePattern) && e.hasAttribute("name")) {
+            Element nameEl = new Element("name");
             String value = e.getAttributeValue("name");
-            name.setText(value);
+            nameEl.setText(value);
             if (e.hasAttribute("ns")) {
-                name.setAttribute("ns", e.getAttributeValue("ns"));
+                nameEl.setAttribute("ns", e.getAttributeValue("ns"));
                 e.removeAttribute("ns");
+            } else {
+                String resolvedNs = resolveNamespaceBinding(value, currentContext, isElementPattern, isAttributePattern);
+                if (resolvedNs != null && !resolvedNs.isEmpty()) {
+                    nameEl.setAttribute("ns", resolvedNs);
+                }
             }
             e.removeAttribute("name");
-            e.getContent().add(0, name);
-        }
-        if ("attribute".equals(e.getName()) && e.hasAttribute("name")) {
-            Element name = new Element("name");
-            String value = e.getAttributeValue("name");
-            name.setText(value);
-            name.setAttribute("ns", e.getAttributeValue("ns"));
-            if (e.hasAttribute("ns")) {
-                e.removeAttribute("ns");
-            }
-            e.removeAttribute("name");
-            e.getContent().add(0, name);
+            e.getContent().add(0, nameEl);
         }
         List<Element> children = e.getChildren();
         Iterator<Element> it = children.iterator();
         while (it.hasNext()) {
-            Element child = it.next();
-            nameAttribute(child);
+            nameAttribute(it.next(), currentContext);
         }
+    }
+
+    private Map<String, String> augmentNamespaceContext(Map<String, String> base, Element element) {
+        Map<String, String> updated = new HashMap<>(base);
+        for (Attribute attr : element.getAttributes()) {
+            String attrName = attr.getName();
+            if ("xmlns".equals(attrName)) {
+                updated.put("", attr.getValue());
+            } else if (attrName.startsWith("xmlns:")) {
+                updated.put(attrName.substring(6), attr.getValue());
+            }
+        }
+        updated.putIfAbsent("xml", "http://www.w3.org/XML/1998/namespace");
+        return updated;
+    }
+
+    private String resolveNamespaceBinding(String lexicalName, Map<String, String> context, boolean isElementPattern,
+            boolean isAttributePattern) {
+        int separatorIndex = lexicalName.indexOf(':');
+        if (separatorIndex == -1) {
+            if (isElementPattern) {
+                return context.get("");
+            }
+            return null;
+        }
+        String prefix = lexicalName.substring(0, separatorIndex);
+        return context.get(prefix);
     }
 
     private Element getRootElement() {
         return root;
+    }
+
+    private boolean isRelaxNGElement(Element element) {
+        String prefix = element.getNamespace();
+        if (!defaultPrefix.equals(prefix)) {
+            return false;
+        }
+        if (element.hasAttribute("xmlns")) {
+            String ns = element.getAttributeValue("xmlns");
+            if (!ns.isEmpty() && !ns.equals(defaultNamespace) && !XMLConstants.RELAXNG_NS_URI.equals(ns)) {
+                return false;
+            }
+        }
+        if (!defaultPrefix.isEmpty() && element.hasAttribute("xmlns:" + defaultPrefix)) {
+            String ns = element.getAttributeValue("xmlns:" + defaultPrefix);
+            if (!ns.isEmpty() && !ns.equals(defaultNamespace) && !XMLConstants.RELAXNG_NS_URI.equals(ns)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isCompatibilityAnnotation(Element element) {
+        return "defaultValue".equals(element.getLocalName());
     }
 
     private void removeForeign(Element e) throws SAXException, IOException, ParserConfigurationException {
@@ -167,14 +265,18 @@ public class RelaxNGParser {
             XMLNode node = it.next();
             if (node.getNodeType() == XMLNode.TEXT_NODE) {
                 newContent.add(node);
+                continue;
             }
             if (node.getNodeType() == XMLNode.PROCESSING_INSTRUCTION_NODE) {
                 newContent.add(node);
+                continue;
             }
             if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
                 Element child = (Element) node;
-                if (!defaultPrefix.equals(child.getNamespace())
-                        || !defaultNamespace.equals(child.getAttributeValue("xmlns"))) {
+                if (!isRelaxNGElement(child)) {
+                    if (isCompatibilityAnnotation(child)) {
+                        newContent.add(child);
+                    }
                     continue;
                 }
                 removeForeign(child);
@@ -201,10 +303,17 @@ public class RelaxNGParser {
             }
             if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
                 Element child = (Element) node;
-                if ("externalRef".equals(child.getName())) {
-                    String system = catalog.matchSystem(null, child.getAttributeValue("href"));
+                if ("externalRef".equals(child.getLocalName())) {
+                    String href = child.getAttributeValue("href");
+                    String system = null;
+                    if (catalog != null) {
+                        system = catalog.matchSystem(null, href);
+                        if (system == null) {
+                            system = catalog.matchURI(href);
+                        }
+                    }
                     if (system == null) {
-                        File f = new File(baseURI, child.getAttributeValue("href"));
+                        File f = new File(baseURI, href);
                         if (f.exists()) {
                             system = f.getAbsolutePath();
                         }
@@ -214,7 +323,7 @@ public class RelaxNGParser {
                         newContent.add(parser.getRootElement());
                     } else {
                         MessageFormat mf = new MessageFormat(Messages.getString("RelaxNGParser.1"));
-                        throw new SAXException(mf.format(new String[] { child.getAttributeValue("href") }));
+                        throw new SAXException(mf.format(new String[] { href }));
                     }
                     continue;
                 }
@@ -242,10 +351,17 @@ public class RelaxNGParser {
             }
             if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
                 Element child = (Element) node;
-                if ("include".equals(child.getName())) {
-                    String system = catalog.matchSystem(null, child.getAttributeValue("href"));
+                if ("include".equals(child.getLocalName())) {
+                    String href = child.getAttributeValue("href");
+                    String system = null;
+                    if (catalog != null) {
+                        system = catalog.matchSystem(null, href);
+                        if (system == null) {
+                            system = catalog.matchURI(href);
+                        }
+                    }
                     if (system == null) {
-                        File f = new File(baseURI, child.getAttributeValue("href"));
+                        File f = new File(baseURI, href);
                         if (f.exists()) {
                             system = f.getAbsolutePath();
                         }
@@ -261,7 +377,7 @@ public class RelaxNGParser {
                         newContent.add(div);
                     } else {
                         MessageFormat mf = new MessageFormat(Messages.getString("RelaxNGParser.0"));
-                        throw new SAXException(mf.format(new String[] { child.getAttributeValue("href") }));
+                        throw new SAXException(mf.format(new String[] { href }));
                     }
                     continue;
                 }
@@ -273,7 +389,7 @@ public class RelaxNGParser {
     }
 
     private void harvestElements(Element e) {
-        if ("element".equals(e.getName()) && e.getChild("name") != null) {
+        if ("element".equals(e.getLocalName()) && getChildByLocalName(e, "name") != null) {
             elements.add(e);
         }
         List<Element> children = e.getChildren();
@@ -284,7 +400,7 @@ public class RelaxNGParser {
     }
 
     private void harvestDefinitions(Element e) {
-        if ("define".equals(e.getName())) {
+        if ("define".equals(e.getLocalName())) {
             String name = e.getAttributeValue("name");
             if (definitions.containsKey(name)) {
                 Element old = definitions.get(name);

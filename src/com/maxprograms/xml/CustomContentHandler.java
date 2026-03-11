@@ -9,7 +9,9 @@
  *******************************************************************************/
 package com.maxprograms.xml;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.EmptyStackException;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -43,6 +45,7 @@ public class CustomContentHandler implements IContentHandler {
 	private Catalog catalog;
 	private boolean isRelaxNG;
 	private Map<String, Map<String, String>> defaultAttributes;
+	private File documentBase;
 
 	public CustomContentHandler() {
 		doc = null;
@@ -78,7 +81,13 @@ public class CustomContentHandler implements IContentHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		try {
 			if (isRelaxNG) {
-				Map<String, String> map = defaultAttributes.get(localName);
+				Map<String, String> map = null;
+				if (uri != null && !uri.isEmpty()) {
+					map = defaultAttributes.get(uri + "|" + localName);
+				}
+				if (map == null) {
+					map = defaultAttributes.get(localName);
+				}
 				if (map != null) {
 					Set<String> keys = map.keySet();
 					Iterator<String> it = keys.iterator();
@@ -197,7 +206,18 @@ public class CustomContentHandler implements IContentHandler {
 
 	@Override
 	public void setDocumentLocator(Locator locator) {
-		// do nothing
+		if (locator == null) {
+			return;
+		}
+		String sysId = locator.getSystemId();
+		if (sysId == null) {
+			return;
+		}
+		try {
+			documentBase = new File(new URI(sysId)).getParentFile();
+		} catch (Exception e) {
+			documentBase = new File(sysId).getParentFile();
+		}
 	}
 
 	@Override
@@ -392,13 +412,29 @@ public class CustomContentHandler implements IContentHandler {
 	}
 
 	private void parseRelaxNG(String href) throws SAXException, IOException, ParserConfigurationException {
+		String system = null;
 		if (catalog != null) {
-			String system = catalog.matchSystem(null, href);
-			if (system != null) {
-				RelaxNGParser relaxngParser = new RelaxNGParser(system, catalog);
-				defaultAttributes = relaxngParser.getElements();
-				isRelaxNG = true;
+			system = catalog.matchSystem(null, href);
+			if (system == null) {
+				system = catalog.matchURI(href);
 			}
+		}
+		if (system == null && documentBase != null) {
+			File f = new File(documentBase, href);
+			if (f.exists()) {
+				system = f.getAbsolutePath();
+			}
+		}
+		if (system == null) {
+			File f = new File(href);
+			if (f.exists()) {
+				system = f.getAbsolutePath();
+			}
+		}
+		if (system != null) {
+			RelaxNGParser relaxngParser = new RelaxNGParser(system, catalog);
+			defaultAttributes = relaxngParser.getElements();
+			isRelaxNG = true;
 		}
 	}
 }
